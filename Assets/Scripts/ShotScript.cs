@@ -40,25 +40,38 @@ public class ShotScript : MonoBehaviour
         BasicMove playerObject = hitInfo.GetComponent<BasicMove>();
         ShotScript shotObject = hitInfo.GetComponent<ShotScript>();
 
+        //what other objects do when a bullet hits it
         //only destroys itself when it hits something other than a player or bullet
-        if(playerObject == null && shotObject == null){
-            EnemyBehavior hitObject = hitInfo.GetComponent<EnemyBehavior>();
-            if(hitObject != null){
-                hitObject.Hit();
+        if(playerObject == null && shotObject == null){//true if didnt hit player or shot object
+            EnemyBehavior hitObject1 = hitInfo.GetComponent<EnemyBehavior>();
+            JumperBehavior hitObject2 = hitInfo.GetComponent<JumperBehavior>();
+            OctoBehavior hitObject3 = hitInfo.GetComponent<OctoBehavior>();
+            if(hitObject1 != null){//true if hit an enemy
+                hitObject1.Hit();
+            }else if(hitObject2 != null){
+                hitObject2.Hit();
+            }else if (hitObject3 != null){
+                hitObject3.Hit();
             }
-            endEffect();
+            endEffect(hitInfo);
         }
     }
 
-    void endEffect(){
+
+    //what the bullet does when it hits an object
+    void endEffect(Collider2D hitInfo){
         if(shotVariant == 1){
             GameObject bulletAnim = Instantiate(impactEffect,transform.position,transform.rotation);
             Destroy(gameObject);
             Destroy(bulletAnim, .34f);
         }else if(shotVariant == 2){
             GameObject bulletAnim = Instantiate(impactEffect,transform.position,transform.rotation);
-            //Destroy(gameObject);
             Destroy(bulletAnim, .34f);
+            
+            PlatformEffector2D tilemap = hitInfo.GetComponent<PlatformEffector2D>();
+            if(tilemap != null){//returns true if hit tilemap
+                Destroy(gameObject);
+            }
         }
     }
 }

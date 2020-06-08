@@ -2,48 +2,46 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBehavior : MonoBehaviour
+public class OctoBehavior : MonoBehaviour
 {
     public float velocity = 30f;
     public Rigidbody2D rb;
-    float run = 0f;
-    float nextRun = 0f;
+    float runY = 0f;
+    float runX = 0f;
     bool facingRight = false;
+    bool facingUp = true;
 
     float timer = 0f;
-    int timeReset = 5;
+    float timeReset = 5f;
     int hits = 0;
 
-    public Animator animator;
-
     void Start(){
-        run = Random.Range(-1f, 1f) * velocity;
+        runX = Random.Range(-1f, 1f) * velocity;
+        runY = Random.Range(-1f, 1f) * velocity;
     }
     // Update is called once per frame
     void Update()
     {
         timer += Time.fixedDeltaTime;  
         if(((int) timer) == timeReset){
-            run = nextRun;
-        }else if(((int) timer) > timeReset) {
-            run = 0f;
-            nextRun = Random.Range(-1f, 1f) * velocity;
+            runX = Random.Range(-1f, 1f) * velocity;
+            runY = Random.Range(-1f, 1f) * velocity;
             timer = 0f;
         } 
         
 
     }
     void FixedUpdate(){
-        Vector3 targetVelocity = new Vector2(run, rb.velocity.y);
+        Vector3 targetVelocity = new Vector2(runX, runY);
         rb.velocity = targetVelocity;
-        animator.SetFloat("Speed", Mathf.Abs(run));
+
+
 
         if(targetVelocity.x > 0 && !facingRight){//moving right, but facing left
-			Flip();
+			FlipX();
 		}else if (targetVelocity.x < 0 && facingRight){//moving left, but facing right
-			Flip();
+			FlipX();
 		}
-        
     }
 
     public void Hit(){
@@ -54,7 +52,8 @@ public class EnemyBehavior : MonoBehaviour
         //Instantiate(gameObject,gameObject.GetComponent<Transform>().position,gameObject.GetComponent<Transform>().rotation);
         Destroy(gameObject);
     }
-    void Flip(){
+
+    void FlipX(){
 		facingRight = !facingRight;
 
 		transform.Rotate(0f, 180f, 0f);
