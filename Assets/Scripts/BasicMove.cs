@@ -10,28 +10,24 @@ public class BasicMove : MonoBehaviour
     bool crouch = false;
     public float moveSpeed = 0f;
 
-    //trying to make collider reduce when crouching
-    public CapsuleCollider2D collider;
-    Vector2 initialSize;
-    Vector2 initialOffset;
-
+    //firepoint maniuplations
     public GameObject firepoint;
-    float firePointOffsetCrouch = .65f;
-    float firePointOffsetLookUpX = .275f;
-    float firePointOffsetLookUpY = .575f;
+    float firePointOffsetCrouch = .13f;
+    float firePointOffsetLookUpX = .125f;
+    float firePointOffsetLookUpY = .17f;
+    Vector2 initFirePointRelPos;
 
     //Animation
     public Animator animator;
     
     void Awake(){
-        initialSize = collider.size;
-        initialOffset = collider.offset;
-        //Debug.Log("initial Collider Size y " + initialColliderSize);
+        initFirePointRelPos = transform.InverseTransformPoint(firepoint.transform.position);//world space into local space
     }
 
     // Update is called once per frame
     void Update()
     {   
+        
         horizontalMove = Input.GetAxisRaw("Horizontal")*moveSpeed;
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
@@ -70,25 +66,20 @@ public class BasicMove : MonoBehaviour
     }
 
     void changeFirePointCrouch(bool yes){
-        Vector2 currentPos = firepoint.GetComponent<Transform>().position;
         if(yes){
-            collider.size = new Vector2(collider.size.x,.15f);
-            collider.offset = new Vector2(collider.offset.x,-.15f);
-            firepoint.GetComponent<Transform>().position = new Vector2(currentPos.x, currentPos.y-firePointOffsetCrouch);
+            Vector2 relTransform = (new Vector2(initFirePointRelPos.x, initFirePointRelPos.y-firePointOffsetCrouch));//transform the relative position
+            firepoint.transform.position = transform.TransformPoint(relTransform);//change rel pos to worl pos and transform
         }else{
-            collider.size = initialSize;
-            collider.offset = initialOffset;
-            firepoint.GetComponent<Transform>().position = new Vector2(currentPos.x, currentPos.y+firePointOffsetCrouch);
-        
+            firepoint.transform.position = transform.TransformPoint(initFirePointRelPos);//go to init rel pos        
         }
     }
     
     void changeFirePointLookUp(bool yes){
-        Vector2 currentPos = firepoint.GetComponent<Transform>().position;
         if(yes){
-            firepoint.GetComponent<Transform>().position = new Vector2(currentPos.x-firePointOffsetLookUpX, currentPos.y+firePointOffsetLookUpY);
+            Vector2 relTransform = (new Vector2(initFirePointRelPos.x-firePointOffsetLookUpX, initFirePointRelPos.y+firePointOffsetLookUpY));//transform the relative position
+            firepoint.transform.position = transform.TransformPoint(relTransform);//change rel pos to worl pos and transform
         }else{
-            firepoint.GetComponent<Transform>().position = new Vector2(currentPos.x+firePointOffsetLookUpX, currentPos.y-firePointOffsetLookUpY);
+            firepoint.transform.position = transform.TransformPoint(initFirePointRelPos);//go to init rel pos     
         }
     }
 
