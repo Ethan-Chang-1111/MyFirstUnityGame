@@ -78,5 +78,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: BigBullet Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 8803801338098986888, guid: 5648ea1d226a417489920bc7a460c668,
+        type: 3}
+      propertyPath: m_TagString
+      value: Bullet
+      objectReference: {fileID: 0}
+    - target: {fileID: 8803801338098986888, guid: 5648ea1d226a417489920bc7a460c668,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5648ea1d226a417489920bc7a460c668, type: 3}

@@ -10,16 +10,17 @@ public class ShotScript : MonoBehaviour
     float timeExisting = 0f;
     public GameObject impactEffect;
     public int shotVariant;
+
     // Start is called before the first frame update
     void Start()
     {
-     rb.velocity = transform.right * speed;
+        rb.velocity = transform.right * speed;
 
-     if(shotVariant == 1){
-         timeToExist = 1;
-     }else if(shotVariant == 2){
-         timeToExist = 7;
-     }
+        if(shotVariant == 1){
+            timeToExist = 1;
+        }else if(shotVariant == 2){
+            timeToExist = 7;
+        }
      
     }
 
@@ -31,6 +32,7 @@ public class ShotScript : MonoBehaviour
             Destroy(gameObject);
             Destroy(bulletAnim, .34f);
         } 
+
     }
 
     //called when enter trigger

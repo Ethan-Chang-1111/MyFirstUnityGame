@@ -165,3 +165,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocity: 10
   rb: {fileID: 3526228216043906396}
+  deathEffect: {fileID: 8996658355018381971, guid: 454cd09e0e1b1f0419b0b5f4f1d7c429,
+    type: 3}

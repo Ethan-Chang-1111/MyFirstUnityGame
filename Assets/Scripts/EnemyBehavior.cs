@@ -15,6 +15,7 @@ public class EnemyBehavior : MonoBehaviour
     int hits = 0;
 
     public Animator animator;
+    public GameObject deathEffect;
 
     void Start(){
         run = Random.Range(-1f, 1f) * velocity;
@@ -51,8 +52,9 @@ public class EnemyBehavior : MonoBehaviour
         //hits++;
         //Debug.Log(hits);
         
-        //Instantiate(gameObject,gameObject.GetComponent<Transform>().position,gameObject.GetComponent<Transform>().rotation);
+        GameObject deathAni = Instantiate(deathEffect,gameObject.GetComponent<Transform>().position,gameObject.GetComponent<Transform>().rotation);
         Destroy(gameObject);
+        Destroy(deathAni,0.5f);
     }
     void Flip(){
 		facingRight = !facingRight;

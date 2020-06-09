@@ -9,10 +9,14 @@ public class playerWeapon : MonoBehaviour
     public GameObject BigBullet;
     //Animation
     public Animator animator;
-    int shotCD1 = 1;
-    int shotCD2 = 3;
+    int shotCD1 = 0;//1
+    int shotCD2 = 0;//3
     float timer1 = 0f;
     float timer2 = 0f;
+
+
+    Quaternion rotation;
+
     // Update is called once per frame
     void Update()
     {
@@ -23,7 +27,7 @@ public class playerWeapon : MonoBehaviour
                 timer1 = 0f;
             }
             animator.SetBool("IsFireing", true);
-        }else if(Input.GetButtonUp("Fire1")){
+        }else if(Input.GetButtonUp("Fire1")){//only calls when button has been pressed and released
             timer1 = 0;
             animator.SetBool("IsFireing", false);
         }else if(Input.GetButton("Fire2")){
@@ -37,14 +41,30 @@ public class playerWeapon : MonoBehaviour
             timer2 = 0;
             animator.SetBool("IsFireing", false);
         }
+
+
+        if(Input.GetButton("LookUp")){
+            aimUp(true);
+        }else if(!Input.GetButton("LookUp")){
+            aimUp(false);
+        }
     }
+
+    void aimUp(bool up){
+        if(up){
+            rotation = Quaternion.Euler(0, 0, 90f);
+        }else{
+            rotation = FirePoint.rotation;
+        }
+    }
+
     //i=1 bullet, i=2, bigbullet
     void Shoot(int i){
         //shooting logic
         if(i==1){
-            Instantiate(Bullet,FirePoint.position,FirePoint.rotation);
+            Instantiate(Bullet,FirePoint.position,rotation);
         }else if(i==2){
-            Instantiate(BigBullet,FirePoint.position,FirePoint.rotation);
+            Instantiate(BigBullet,FirePoint.position,rotation);
         }
     }
 }

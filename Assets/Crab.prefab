@@ -166,3 +166,5 @@ MonoBehaviour:
   velocity: 30
   rb: {fileID: 2713989224346090476}
   animator: {fileID: 1849076301143795679}
+  deathEffect: {fileID: 8996658355018381971, guid: 454cd09e0e1b1f0419b0b5f4f1d7c429,
+    type: 3}

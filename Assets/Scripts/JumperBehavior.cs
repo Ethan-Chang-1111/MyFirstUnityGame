@@ -15,6 +15,7 @@ public class JumperBehavior : MonoBehaviour
     //int hits = 0;
 
     public Animator animator;
+    public GameObject deathEffect;
 
     void Start(){
         random = Random.Range(0f, 1f);
@@ -56,7 +57,9 @@ public class JumperBehavior : MonoBehaviour
     }
 
     public void Hit(){
+        GameObject deathAni = Instantiate(deathEffect,gameObject.GetComponent<Transform>().position,gameObject.GetComponent<Transform>().rotation);
         Destroy(gameObject);
+        Destroy(deathAni,0.5f);
     }
 
     void Flip(){

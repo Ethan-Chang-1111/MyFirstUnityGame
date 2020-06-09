@@ -6,7 +6,7 @@ public class EnemySpawn : MonoBehaviour
 {
     public GameObject enemy;
     public Transform location;
-    int rate = 1;
+    int rate = 2;
     float timer = 0f;
     // Update is called once per frame
     void Update()

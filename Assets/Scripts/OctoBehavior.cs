@@ -14,6 +14,8 @@ public class OctoBehavior : MonoBehaviour
     float timer = 0f;
     float timeReset = 5f;
     int hits = 0;
+    
+    public GameObject deathEffect;
 
     void Start(){
         runX = Random.Range(-1f, 1f) * velocity;
@@ -45,12 +47,9 @@ public class OctoBehavior : MonoBehaviour
     }
 
     public void Hit(){
-        //Debug.Log("Hit registered");
-        //hits++;
-        //Debug.Log(hits);
-        
-        //Instantiate(gameObject,gameObject.GetComponent<Transform>().position,gameObject.GetComponent<Transform>().rotation);
+        GameObject deathAni = Instantiate(deathEffect,gameObject.GetComponent<Transform>().position,gameObject.GetComponent<Transform>().rotation);
         Destroy(gameObject);
+        Destroy(deathAni,0.5f);
     }
 
     void FlipX(){

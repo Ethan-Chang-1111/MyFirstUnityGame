@@ -16,7 +16,9 @@ public class BasicMove : MonoBehaviour
     Vector2 initialOffset;
 
     public GameObject firepoint;
-    float firePointOffset = .65f;
+    float firePointOffsetCrouch = .65f;
+    float firePointOffsetLookUpX = .275f;
+    float firePointOffsetLookUpY = .575f;
 
     //Animation
     public Animator animator;
@@ -29,7 +31,7 @@ public class BasicMove : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
         horizontalMove = Input.GetAxisRaw("Horizontal")*moveSpeed;
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
@@ -37,24 +39,57 @@ public class BasicMove : MonoBehaviour
             jump = true;
             animator.SetBool("Jump",true);
         }
+
         if(Input.GetButtonDown("Crouch")){
             crouch = true;
-            collider.size = new Vector2(collider.size.x,.15f);
-            collider.offset = new Vector2(collider.offset.x,-.15f);
-            firepoint.GetComponent<Transform>().position = new Vector2(firepoint.GetComponent<Transform>().position.x,firepoint.GetComponent<Transform>().position.y-firePointOffset);
+            changeFirePointCrouch(true);    
         }else if(Input.GetButtonUp("Crouch")){
             crouch = false;
-            collider.size = initialSize;
-            collider.offset = initialOffset;
-            firepoint.GetComponent<Transform>().position = new Vector2(firepoint.GetComponent<Transform>().position.x,firepoint.GetComponent<Transform>().position.y+firePointOffset);
+            changeFirePointCrouch(false);
         }
+
+        if(Input.GetButtonDown("LookUp")){
+            changeFirePointLookUp(true);
+            animator.SetBool("AimUp",true);
+        }else if(Input.GetButtonUp("LookUp")){
+            changeFirePointLookUp(false);
+            animator.SetBool("AimUp",false);
+        }
+
+        
     }
 
     void FixedUpdate(){
+        if(jump){
+            animator.SetBool("InAir", true);
+        }
+
         controller.Move(horizontalMove * Time.fixedDeltaTime,crouch,jump);
         jump = false;
         animator.SetBool("Jump", false);
-        animator.SetBool("InAir", true);
+    }
+
+    void changeFirePointCrouch(bool yes){
+        Vector2 currentPos = firepoint.GetComponent<Transform>().position;
+        if(yes){
+            collider.size = new Vector2(collider.size.x,.15f);
+            collider.offset = new Vector2(collider.offset.x,-.15f);
+            firepoint.GetComponent<Transform>().position = new Vector2(currentPos.x, currentPos.y-firePointOffsetCrouch);
+        }else{
+            collider.size = initialSize;
+            collider.offset = initialOffset;
+            firepoint.GetComponent<Transform>().position = new Vector2(currentPos.x, currentPos.y+firePointOffsetCrouch);
+        
+        }
+    }
+    
+    void changeFirePointLookUp(bool yes){
+        Vector2 currentPos = firepoint.GetComponent<Transform>().position;
+        if(yes){
+            firepoint.GetComponent<Transform>().position = new Vector2(currentPos.x-firePointOffsetLookUpX, currentPos.y+firePointOffsetLookUpY);
+        }else{
+            firepoint.GetComponent<Transform>().position = new Vector2(currentPos.x+firePointOffsetLookUpX, currentPos.y-firePointOffsetLookUpY);
+        }
     }
 
     //InAir is not getting set to false when it is grounded
@@ -62,6 +97,7 @@ public class BasicMove : MonoBehaviour
         animator.SetBool("InAir", false);
         //Debug.Log("Jump to false");
     }
+
     public void OnCrouching(bool isCrouching){
         animator.SetBool("Crouch", isCrouching);
         //firepointPos.position.y = firepointPos.position.y/2; 
