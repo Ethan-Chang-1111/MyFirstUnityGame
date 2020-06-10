@@ -7,14 +7,17 @@ public class playerWeapon : MonoBehaviour
     public Transform FirePoint;
     public GameObject Bullet;
     public GameObject BigBullet;
+
     //Animation
     public Animator animator;
-    int shotCD1 = 0;//1
-    int shotCD2 = 0;//3
+
+    //fireing cooldowns
+    float shotCD1 = .5f;
+    float shotCD2 = 2f;
     float timer1 = 0f;
     float timer2 = 0f;
 
-
+    //aiming up
     Quaternion rotation;
 
     // Update is called once per frame
@@ -22,7 +25,7 @@ public class playerWeapon : MonoBehaviour
     {
         if(Input.GetButton("Fire1")){
             timer1 += Time.fixedDeltaTime;
-            if((int)timer1 == shotCD1){
+            if(timer1 >= shotCD1){
                 Shoot(1);
                 timer1 = 0f;
             }
@@ -32,7 +35,7 @@ public class playerWeapon : MonoBehaviour
             animator.SetBool("IsFireing", false);
         }else if(Input.GetButton("Fire2")){
             timer2 += Time.fixedDeltaTime;
-            if((int)timer2 == shotCD2){
+            if(timer2 >= shotCD2){
                 Shoot(2);
                 timer2 = 0f;
             }
@@ -41,7 +44,6 @@ public class playerWeapon : MonoBehaviour
             timer2 = 0;
             animator.SetBool("IsFireing", false);
         }
-
 
         if(Input.GetButton("LookUp")){
             aimUp(true);
@@ -61,10 +63,13 @@ public class playerWeapon : MonoBehaviour
     //i=1 bullet, i=2, bigbullet
     void Shoot(int i){
         //shooting logic
-        if(i==1){
-            Instantiate(Bullet,FirePoint.position,rotation);
-        }else if(i==2){
-            Instantiate(BigBullet,FirePoint.position,rotation);
+        bool inAir = animator.GetBool("InAir");
+        if(!inAir){
+            if(i==1){
+                Instantiate(Bullet,FirePoint.position,rotation);
+            }else if(i==2){
+                Instantiate(BigBullet,FirePoint.position,rotation);
+            }
         }
     }
 }

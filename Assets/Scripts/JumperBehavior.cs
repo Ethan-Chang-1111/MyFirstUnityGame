@@ -4,20 +4,24 @@ using UnityEngine;
 
 public class JumperBehavior : MonoBehaviour
 {
-    public float jumpVelocity = 30f;
     public Rigidbody2D rb;
-    float run = -1f;
-    float random = 1f;
-    bool facingRight = false;
-
-    float timer = 0f;
-    float timeReset = 10;
-    //int hits = 0;
-
     public Animator animator;
     public GameObject deathEffect;
+    public GameObject healthBar;
+    public float jumpVelocity = 30f;
+    bool facingRight = false;
+
+    //random movement
+    float run = -1f;
+    float random = 1f;
+    float timer = 0f;
+    float timeReset = 10;
+    
+    float maxHealth = 100f;
+    float health;
 
     void Start(){
+        health = maxHealth;
         random = Random.Range(0f, 1f);
     }
 
@@ -48,7 +52,6 @@ public class JumperBehavior : MonoBehaviour
             animator.SetBool("InAir",true);
         }
 
-
         if(targetVelocity.x > 0 && !facingRight){//moving right, but facing left
 			Flip();
 		}else if (targetVelocity.x < 0 && facingRight){//moving left, but facing right
@@ -56,15 +59,40 @@ public class JumperBehavior : MonoBehaviour
 		}
     }
 
-    public void Hit(){
-        GameObject deathAni = Instantiate(deathEffect,gameObject.GetComponent<Transform>().position,gameObject.GetComponent<Transform>().rotation);
-        Destroy(gameObject);
-        Destroy(deathAni,0.5f);
+    public void Hit(float damage){
+        health -= damage;
+
+        if(health >= 0){
+            int index = 0;
+            float percent = (health/maxHealth);
+            if(percent >= 1.0){
+                index = 0;
+            }else if(percent >= .75){
+                index = 1;
+            }else if(percent >= .5){
+                index = 2;
+            }else if(percent >= .25){
+                index = 3;
+            }else if(percent > 0){
+                index = 3;
+            }else if(percent == 0){
+                index = 4;
+            }
+            //Debug.Log("%: " + percent + " i: " + index);
+            GameObject healthObj = Instantiate(healthBar,gameObject.transform.position,Quaternion.Euler(0, 0, 0));
+            healthObj.GetComponent<DisplayHealth>().display(index);
+            Destroy(healthObj,.25f);
+        }
+
+        if(health <=0){
+            GameObject deathAni = Instantiate(deathEffect,gameObject.transform.position,gameObject.transform.rotation);
+            Destroy(gameObject);
+            Destroy(deathAni,0.5f);
+        }
     }
 
     void Flip(){
 		facingRight = !facingRight;
-
 		transform.Rotate(0f, 180f, 0f);
 	}
 

@@ -61,14 +61,8 @@ public class CharacterController2D : MonoBehaviour
 				m_Grounded = true;
 				if (!wasGrounded){//returns true if were in the air and just landed
 					OnLandEvent.Invoke();}
-				//m_Grounded = true;
 			}
 		}
-
-		/*if(previousY == m_Rigidbody2D.position.y && !m_Grounded){
-			OnLandEvent.Invoke();
-		}
-		previousY = m_Rigidbody2D.position.y;*/
 	}
 
 
@@ -142,7 +136,6 @@ public class CharacterController2D : MonoBehaviour
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
 		}
 	}
-
 
 	private void Flip()
 	{

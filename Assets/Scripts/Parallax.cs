@@ -6,8 +6,9 @@ public class Parallax : MonoBehaviour
 {
     //parallaxing
     public Transform[] backgrounds;
-    private float[] parallaxScales;
     public float smoothing = 1f;
+
+    private float[] parallaxScales;
     private Transform camera;
     private Vector3 previousCamPos;
     private Vector3 relVelocity = Vector3.zero;
@@ -76,7 +77,5 @@ public class Parallax : MonoBehaviour
         }
         previousPlayerPosition = rb.position;
         previousCamPos = camera.position;
-
-
     }
 }
