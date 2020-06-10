@@ -30,10 +30,12 @@ public class ShotScript : MonoBehaviour
     void OnTriggerEnter2D(Collider2D hitInfo){
         BasicMove playerObject = hitInfo.GetComponent<BasicMove>();
         ShotScript shotObject = hitInfo.GetComponent<ShotScript>();
+        PowerUp pwrUp = hitInfo.GetComponent<PowerUp>();
 
+        string tag = hitInfo.tag;
         //what other objects do when a bullet hits it
         //only destroys itself when it hits something other than a player or bullet
-        if(playerObject == null && shotObject == null){//true if didnt hit player or bullet
+        if(tag != "Player" && tag != "Bullet" && tag != "PlayerInteract"){//true if didnt hit player or bullet or powerup
             EnemyBehavior hitObject1 = hitInfo.GetComponent<EnemyBehavior>();
             JumperBehavior hitObject2 = hitInfo.GetComponent<JumperBehavior>();
             OctoBehavior hitObject3 = hitInfo.GetComponent<OctoBehavior>();

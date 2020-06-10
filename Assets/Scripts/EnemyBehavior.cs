@@ -20,6 +20,10 @@ public class EnemyBehavior : MonoBehaviour
     float maxHealth = 100f;
     float health;
 
+    public float damage = 5f;
+    public float kbX = 1000f;
+    public float kbY = 300f;
+
     void Start(){
         health = maxHealth;
         run = Random.Range(-1f, 1f) * velocity;

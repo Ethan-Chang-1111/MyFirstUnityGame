@@ -169,3 +169,6 @@ MonoBehaviour:
   healthBar: {fileID: 9028694504705025698, guid: ee76f00f85a172841a6079c161f40920,
     type: 3}
   velocity: 10
+  damage: 20
+  kbX: 1000
+  kbY: 300

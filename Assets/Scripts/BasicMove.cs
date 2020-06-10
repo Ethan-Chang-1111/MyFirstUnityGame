@@ -17,9 +17,7 @@ public class BasicMove : MonoBehaviour
 
     float timer;
     bool isInvinc = false;
-    float invicTime = 2f;
-    float kbX=200;
-    float kbY=200;
+    float invicTime = 5f;
 
     //firepoint manipulation variables
     public GameObject firepoint;
@@ -29,18 +27,22 @@ public class BasicMove : MonoBehaviour
     float firePointOffsetLookUpY = .17f;
 
     //collider manipulation variables
-    public CapsuleCollider2D collider;
+    public CapsuleCollider2D colliderObj;
     Vector2 initialSize;
     Vector2 initialOffset;
 
     //Animation variable
     public Animator animator;
+    public SpriteRenderer spriteRender;
+    Color initColor;
+    bool IsOpaque = true;
     
     void Awake(){
         health = maxHealth;
+        initColor = spriteRender.color;
 
-        initialSize = collider.size;
-        initialOffset = collider.offset;
+        initialSize = colliderObj.size;
+        initialOffset = colliderObj.offset;
 
         initFirePointRelPos = transform.InverseTransformPoint(firepoint.transform.position);//world space into local space
     }
@@ -50,13 +52,16 @@ public class BasicMove : MonoBehaviour
     {   
         horizontalMove = Input.GetAxisRaw("Horizontal")*moveSpeed;
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
-        
+
         if(isInvinc){
             timer += Time.fixedDeltaTime;
             if(timer >= invicTime){
-                animator.SetBool("Damaged",false);
                isInvinc = false;
                timer = 0;
+               animator.SetBool("InAir",false);
+               animator.SetBool("Damaged",false);
+            }else{
+                playerBlink();
             }
         }
 
@@ -67,13 +72,13 @@ public class BasicMove : MonoBehaviour
 
         if(Input.GetButtonDown("Crouch")){
             crouch = true;
-            collider.size = new Vector2(collider.size.x,.15f);
-            collider.offset = new Vector2(collider.offset.x,-.15f);
+            colliderObj.size = new Vector2(colliderObj.size.x,.15f);
+            colliderObj.offset = new Vector2(colliderObj.offset.x,-.15f);
             changeFirePointCrouch(true);    
         }else if(Input.GetButtonUp("Crouch")){
             crouch = false;
-            collider.size = initialSize;
-            collider.offset = initialOffset;
+            colliderObj.size = initialSize;
+            colliderObj.offset = initialOffset;
             changeFirePointCrouch(false);
         }
 
@@ -101,25 +106,53 @@ public class BasicMove : MonoBehaviour
             EnemyBehavior hitObject1 = hitInfo.GetComponent<EnemyBehavior>();
             JumperBehavior hitObject2 = hitInfo.GetComponent<JumperBehavior>();
             OctoBehavior hitObject3 = hitInfo.GetComponent<OctoBehavior>();
-            if(hitObject1 != null){//true if hit an enemy
-                takeDamage(1);
+
+            if(hitObject1 != null){//true if hit by Crab Enemy
+                Vector2 AB = (hitObject1.rb.position - rb.position);//vector from player to obj
+                Vector2 KB = calcKB(AB,hitObject1.kbX,hitObject1.kbY);
+                takeDamage(hitObject1.damage, KB);
+
             }else if(hitObject2 != null){
-                takeDamage(1);
+                Vector2 AB = (hitObject2.rb.position - rb.position);//vector from player to obj
+                Vector2 KB = calcKB(AB,hitObject2.kbX,hitObject2.kbY);
+                takeDamage(hitObject2.damage, KB);
+
             }else if (hitObject3 != null){
-                takeDamage(1);
+                Vector2 AB = (hitObject3.rb.position - rb.position);//vector from player to obj
+                Vector2 KB = calcKB(AB,hitObject3.kbX,hitObject3.kbY);
+                takeDamage(hitObject3.damage, KB);
+
             }
-        
     }
 
-    void takeDamage(float dmg){
+    Vector2 calcKB(Vector2 enemyPos, float kbX, float kbY){
+        Vector2 noMag = enemyPos.normalized;//Remove magnitude and keep direction of AB
+        return new Vector2(-(noMag.x*kbX),-(noMag.y*kbY));//increase magnitude of AB to right kb value and reverse direction
+    }
+    
+    void takeDamage(float dmg, Vector2 kb){
         if(!isInvinc){//if not invincible
             health -= dmg;
             animator.SetBool("Damaged",true);
+            animator.SetBool("InAir",true);
             isInvinc = true;//can no longer take damage until set to false;
-            rb.AddForce(new Vector2(kbX, kbY));
+            rb.AddForce(kb);
             Debug.Log(health);
         }
+    }
 
+    void playerBlink(){
+        if(IsOpaque){
+            Color newColor = new Color(initColor.r,initColor.g,initColor.b,0.5f);
+            spriteRender.color = newColor;
+        }else{
+            spriteRender.color = initColor;
+        }
+        IsOpaque = !IsOpaque;
+    }
+
+    public void powerUp(){
+        Debug.Log("Player Power");
     }
 
     void changeFirePointCrouch(bool yes){
@@ -144,6 +177,7 @@ public class BasicMove : MonoBehaviour
     //the player jumps and lands immediately, so OnLanding is not called
     public void OnLanding(){
         animator.SetBool("InAir", false);
+        animator.SetBool("Damaged",false);
     }
 
     public void OnCrouching(bool isCrouching){

@@ -20,6 +20,10 @@ public class JumperBehavior : MonoBehaviour
     float maxHealth = 100f;
     float health;
 
+    public float damage = 10f;
+    public float kbX = 2000f;
+    public float kbY = 0f;
+
     void Start(){
         health = maxHealth;
         random = Random.Range(0f, 1f);

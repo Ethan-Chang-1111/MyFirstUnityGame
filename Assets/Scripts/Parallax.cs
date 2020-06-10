@@ -9,7 +9,7 @@ public class Parallax : MonoBehaviour
     public float smoothing = 1f;
 
     private float[] parallaxScales;
-    private Transform camera;
+    private Transform Paracamera;
     private Vector3 previousCamPos;
     private Vector3 relVelocity = Vector3.zero;
 
@@ -21,7 +21,7 @@ public class Parallax : MonoBehaviour
     
     //called before Start, great for referances
     void Awake(){
-        camera = Camera.main.transform;
+        Paracamera = Camera.main.transform;
         rb = player.GetComponent<Rigidbody2D>();
         playerMovement = player.GetComponent<BasicMove>();
         //Debug.Log(playerMovement.moveSpeed);
@@ -31,7 +31,7 @@ public class Parallax : MonoBehaviour
     void Start()
     {
         previousPlayerPosition = rb.position;
-        previousCamPos = camera.position;
+        previousCamPos = Paracamera.position;
 
         parallaxScales = new float[backgrounds.Length];
         for(int i = 0;i<backgrounds.Length;i++){
@@ -50,7 +50,7 @@ public class Parallax : MonoBehaviour
         //parallax update
         for(int i = 0; i<backgrounds.Length;i++){
             //parallax is the opposite of the camera movement because the previous frame multiplied by the scale
-            float parallax = (previousCamPos.x - camera.position.x) * parallaxScales[i];
+            float parallax = (previousCamPos.x - Paracamera.position.x) * parallaxScales[i];
         
             //set target x position which is the current position plus parallax
             float backgroundPositionX = backgrounds[i].position.x + parallax;
@@ -64,7 +64,7 @@ public class Parallax : MonoBehaviour
             
         }
         //set the previous cam position to the new cam position
-        previousCamPos = camera.position;
+        previousCamPos = Paracamera.position;
     }
     void backgroundFollowScript(){
         //background lock on player update
@@ -76,6 +76,6 @@ public class Parallax : MonoBehaviour
             backgrounds[i].position = Vector3.Lerp(backgrounds[i].position,rb.position,(smoothing)*Time.deltaTime);
         }
         previousPlayerPosition = rb.position;
-        previousCamPos = camera.position;
+        previousCamPos = Paracamera.position;
     }
 }

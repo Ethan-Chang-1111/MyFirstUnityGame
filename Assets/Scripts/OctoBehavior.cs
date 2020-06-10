@@ -18,6 +18,10 @@ public class OctoBehavior : MonoBehaviour
 
     float maxHealth = 100f;
     float health;
+    
+    public float damage = 20f;
+    public float kbX = 300f;
+    public float kbY = 300f;
 
     void Start(){
         health = maxHealth;
