@@ -8,6 +8,7 @@ public class BigBullet : BulletBase
     public override void Start()
     {
         lifespan = 7;
+        damage = 50f;
         rb.velocity = transform.right * speed;
     }
 

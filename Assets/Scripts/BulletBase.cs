@@ -6,6 +6,7 @@ public class BulletBase : BulletAbstract
 {
     public Rigidbody2D rb = null;
     public GameObject impactEffect = null;
+    public float damage = 10f;
     public float speed = 10f;
     public int lifespan = 1;
     public float timeExisting = 0f;
@@ -28,7 +29,7 @@ public class BulletBase : BulletAbstract
         if(tag == "Enemy" || tag == "Ground"){//true if hit enemy or ground
             EnemyParent hitObject = hitInfo.GetComponent<EnemyParent>();
             if(hitObject != null){
-                hitObject.Hit(10);
+                hitObject.Hit(damage);
             }
             endEffect(tag);
         }

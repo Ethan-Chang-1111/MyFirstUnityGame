@@ -7,12 +7,12 @@ public class BasicMove : MonoBehaviour
     //player status variables
     [SerializeField] private CharacterController2D controller = null;
     [SerializeField] private Rigidbody2D rb = null;
-    [SerializeField] private float moveSpeed = 0f;
+    float moveSpeed = 30f;
     float horizontalMove = 0f;
     bool jump = false;
     bool crouch = false;
 
-    [SerializeField] private float maxHealth = 100;
+    float maxHealth = 100;
     float health;
 
     float timer;
@@ -26,11 +26,6 @@ public class BasicMove : MonoBehaviour
     float firePointOffsetLookUpX = .125f;
     float firePointOffsetLookUpY = .17f;
 
-    //collider manipulation variables
-    [SerializeField] private CapsuleCollider2D colliderObj = null;
-    Vector2 initialSize;
-    Vector2 initialOffset;
-
     //Animation variable
     [SerializeField] private Animator animator = null;
     [SerializeField] private SpriteRenderer spriteRender = null;
@@ -40,9 +35,6 @@ public class BasicMove : MonoBehaviour
     void Awake(){
         health = maxHealth;
         initColor = spriteRender.color;
-
-        initialSize = colliderObj.size;
-        initialOffset = colliderObj.offset;
 
         initFirePointRelPos = transform.InverseTransformPoint(firepoint.transform.position);//world space into local space
     }
@@ -72,13 +64,9 @@ public class BasicMove : MonoBehaviour
 
         if(Input.GetButtonDown("Crouch")){
             crouch = true;
-            colliderObj.size = new Vector2(colliderObj.size.x,.15f);
-            colliderObj.offset = new Vector2(colliderObj.offset.x,-.15f);
             changeFirePointCrouch(true);    
         }else if(Input.GetButtonUp("Crouch")){
             crouch = false;
-            colliderObj.size = initialSize;
-            colliderObj.offset = initialOffset;
             changeFirePointCrouch(false);
         }
 
@@ -137,8 +125,10 @@ public class BasicMove : MonoBehaviour
         IsOpaque = !IsOpaque;
     }
 
-    public void powerUp(){
-        Debug.Log("Player Power");
+    public void powerUp(bool active, int type){
+        if(type == 1){
+            moveSpeed = active?60f:30f;
+        }
     }
 
     void changeFirePointCrouch(bool yes){

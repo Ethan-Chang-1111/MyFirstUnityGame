@@ -120,7 +120,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.3
+  m_Radius: 0.23862204
 --- !u!114 &-6948273542772931281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,6 +136,7 @@ MonoBehaviour:
   rb: {fileID: 3855656090557987836}
   impactEffect: {fileID: 4739164678602599981, guid: f5ac575728053a741bde524f822b1305,
     type: 3}
+  damage: 10
   speed: 10
   lifespan: 1
   timeExisting: 0
