@@ -22,14 +22,9 @@ public class BasicMove : MonoBehaviour
     //firepoint manipulation variables
     [SerializeField] private GameObject firepoint = null;
     Vector2 initFirePointRelPos;
-    float firePointOffsetCrouch = .13f;
+    float firePointOffsetCrouch = .14f;
     float firePointOffsetLookUpX = .125f;
     float firePointOffsetLookUpY = .17f;
-
-    //collider manipulation variables
-    [SerializeField] private CapsuleCollider2D colliderObj = null;
-    Vector2 initialSize;
-    Vector2 initialOffset;
 
     //Animation variable
     [SerializeField] private Animator animator = null;
@@ -40,9 +35,6 @@ public class BasicMove : MonoBehaviour
     void Awake(){
         health = maxHealth;
         initColor = spriteRender.color;
-
-        initialSize = colliderObj.size;
-        initialOffset = colliderObj.offset;
 
         initFirePointRelPos = transform.InverseTransformPoint(firepoint.transform.position);//world space into local space
     }
@@ -72,13 +64,9 @@ public class BasicMove : MonoBehaviour
 
         if(Input.GetButtonDown("Crouch")){
             crouch = true;
-            colliderObj.size = new Vector2(colliderObj.size.x,.15f);
-            colliderObj.offset = new Vector2(colliderObj.offset.x,-.15f);
             changeFirePointCrouch(true);    
         }else if(Input.GetButtonUp("Crouch")){
             crouch = false;
-            colliderObj.size = initialSize;
-            colliderObj.offset = initialOffset;
             changeFirePointCrouch(false);
         }
 
@@ -137,10 +125,10 @@ public class BasicMove : MonoBehaviour
         IsOpaque = !IsOpaque;
     }
 
-    public void powerUp(){
-        Debug.Log("Player Power");
+    public void heal(float amount){
+        health += amount;
+        Debug.Log("Called");
     }
-
     void changeFirePointCrouch(bool yes){
         if(yes){
             Vector2 relTransform = (new Vector2(initFirePointRelPos.x, initFirePointRelPos.y-firePointOffsetCrouch));//transform the relative position

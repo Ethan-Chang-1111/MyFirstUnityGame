@@ -17,25 +17,12 @@ public class playerWeapon : MonoBehaviour
     float timer1 = 0f;
     float timer2 = 0f;
 
-    float prevCD = 0f;
-    float timer3 = 0f;
-    float pwrUpDuration = 0f;
-    bool powerUpActive = false;
-
     //aiming up
     Quaternion rotation;
 
     // Update is called once per frame
     void Update()
     {
-
-        if(powerUpActive){
-            timer3 += Time.fixedDeltaTime;
-            if(timer3>=pwrUpDuration){
-                powerUp(false);
-                timer3 = 0f;
-            }
-        }
 
         if(Input.GetButton("Fire1")){
             timer1 += Time.fixedDeltaTime;
@@ -87,17 +74,9 @@ public class playerWeapon : MonoBehaviour
         }
     }
 
-    public void powerUp(bool on){
-        if(on){
-            powerUpActive = true;
-            prevCD = shotCD2;
-            shotCD2 = 0;
-            pwrUpDuration = 5f;
-        }else{
-            powerUpActive = false;
-            shotCD2 = prevCD;
-            prevCD = 0;
+    public void powerUp(bool active, int type){
+        if(type == 1){
+            shotCD2 = active?0:2f;
         }
-
     }
 }

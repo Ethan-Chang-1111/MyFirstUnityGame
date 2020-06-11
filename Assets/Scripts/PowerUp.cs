@@ -4,20 +4,46 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
-    //lowers big shot cooldown
 
-    // Start is called before the first frame update
+    public int type = 1;
+    public float duration = 4;
+    bool active = false;
+
+    Collider2D player;
+    
+   
+    void Update(){
+
+        if(active){
+            duration -= Time.fixedDeltaTime;  
+            if(0 >= duration){
+                active = false;
+                endEffect();
+            } 
+        }
+    }
+
+     // Start is called before the first frame update
     void OnTriggerEnter2D(Collider2D hitInfo){
-        BasicMove playerObject = hitInfo.GetComponent<BasicMove>();
-        playerWeapon weapon = hitInfo.GetComponent<playerWeapon>();
-        //what other objects do when a bullet hits it
-        //only destroys itself when it hits something other than a player or bullet
-        if(playerObject != null){//true if hit player
-            playerObject.powerUp();
-        }
-        if(weapon != null){
-            weapon.powerUp(true);
+        if(hitInfo.CompareTag("Player")){//true if hit player
+            player = hitInfo;
+            active = true;
+            startEffect();
         }
 
+    }
+
+    void startEffect(){
+        playerWeapon playerScript = player.GetComponent<playerWeapon>();
+        playerScript.powerUp(true,type);
+
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<CircleCollider2D>().enabled = false;
+    }
+
+    void endEffect(){
+        playerWeapon playerScript = player.GetComponent<playerWeapon>();
+        playerScript.powerUp(false,type);
+        Destroy(gameObject);
     }
 }
