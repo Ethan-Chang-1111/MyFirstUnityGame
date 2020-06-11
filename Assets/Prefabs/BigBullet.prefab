@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3855656090557987837}
   - component: {fileID: 3855656090557987836}
   - component: {fileID: 3855656090557987835}
-  - component: {fileID: 3855656090557987834}
-  m_Layer: 0
+  - component: {fileID: -6948273542772931281}
+  m_Layer: 9
   m_Name: BigBullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.3
---- !u!114 &3855656090557987834
+--- !u!114 &-6948273542772931281
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,3 +137,5 @@ MonoBehaviour:
   impactEffect: {fileID: 4739164678602599981, guid: f5ac575728053a741bde524f822b1305,
     type: 3}
   speed: 10
+  lifespan: 1
+  timeExisting: 0

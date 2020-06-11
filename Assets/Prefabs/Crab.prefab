@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1849076301143795679}
   - component: {fileID: 2713989224346090476}
   - component: {fileID: 3022847926196121810}
-  - component: {fileID: 766162742285912855}
+  - component: {fileID: 2120237934379470361}
   m_Layer: 0
   m_Name: Crab
   m_TagString: Enemy
@@ -151,7 +151,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.9087846, y: 1.7969394}
   m_EdgeRadius: 0
---- !u!114 &766162742285912855
+--- !u!114 &2120237934379470361
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -160,7 +160,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5464615206282483303}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d8f0bad097f43b4a9db43fae80e4bac, type: 3}
+  m_Script: {fileID: 11500000, guid: 44670badefe750248be84c1b51c59568, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 2713989224346090476}
@@ -170,6 +170,6 @@ MonoBehaviour:
   healthBar: {fileID: 9028694504705025698, guid: ee76f00f85a172841a6079c161f40920,
     type: 3}
   velocity: 30
-  damage: 5
+  damage: 10
   kbX: 1000
   kbY: 300

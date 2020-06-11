@@ -169,4 +169,10 @@ MonoBehaviour:
     type: 3}
   healthBar: {fileID: 9028694504705025698, guid: ee76f00f85a172841a6079c161f40920,
     type: 3}
+  facingRight: 0
+  maxHealth: 100
+  health: 0
+  damage: 5
+  kbX: 2000
+  kbY: 0
   jumpVelocity: 10

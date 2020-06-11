@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Effect
   - PlayerInteract
+  - Ground
   layers:
   - Default
   - TransparentFX

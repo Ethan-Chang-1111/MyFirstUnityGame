@@ -2,29 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JumperBehavior : MonoBehaviour
+public class JumperBehavior : EnemyBehavior
 {
-    public Rigidbody2D rb;
+    /*public Rigidbody2D rb;
     public Animator animator;
-    public GameObject deathEffect;
-    public GameObject healthBar;
-    public float jumpVelocity = 30f;
-    bool facingRight = false;
+    [SerializeField] private GameObject deathEffect = null;
+    [SerializeField] private GameObject healthBar = null;*/
+    [SerializeField] private float jumpVelocity = 0f;
+    //bool facingRight = false;
 
     //random movement
     float run = -1f;
     float random = 1f;
     float timer = 0f;
     float timeReset = 10;
-    
+    /*
     float maxHealth = 100f;
     float health;
 
     public float damage = 10f;
     public float kbX = 2000f;
-    public float kbY = 0f;
+    public float kbY = 0f;*/
 
     void Start(){
+        damage = 5;
+        kbX = 2000;
+        kbY = 0;
         health = maxHealth;
         random = Random.Range(0f, 1f);
     }
@@ -63,6 +66,14 @@ public class JumperBehavior : MonoBehaviour
 		}
     }
 
+    void OnCollisionEnter2D(Collision2D collision){
+        GameObject hitObject = collision.gameObject;
+        PlatformEffector2D tilemap = hitObject.GetComponent<PlatformEffector2D>();
+        if(tilemap != null){//returns true if hit tilemap
+            animator.SetBool("InAir",false);
+        }
+    }
+    /*
     public void Hit(float damage){
         health -= damage;
 
@@ -95,16 +106,18 @@ public class JumperBehavior : MonoBehaviour
         }
     }
 
-    void Flip(){
+    public void Flip(){
 		facingRight = !facingRight;
 		transform.Rotate(0f, 180f, 0f);
 	}
 
-    void OnCollisionEnter2D(Collision2D collision){
-        GameObject hitObject = collision.gameObject;
-        PlatformEffector2D tilemap = hitObject.GetComponent<PlatformEffector2D>();
-        if(tilemap != null){//returns true if hit tilemap
-            animator.SetBool("InAir",false);
-        }
+    public Rigidbody2D getRB(){
+        return rb;
     }
+
+    public Vector3 getOnHit(){
+        return new Vector3(kbX,kbY,damage);
+    }*/
+
+    
 }

@@ -2,50 +2,53 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OctoBehavior :  EnemyBehavior
+public class CrabBehavior : EnemyBehavior
 {
     /*public Rigidbody2D rb;
+    public Animator animator;
     [SerializeField] private GameObject deathEffect = null;
     [SerializeField] private GameObject healthBar = null;*/
     [SerializeField] private float velocity = 0f;
-    //bool facingRight = false;
 
     //random movement
-    float runY = 0f;
-    float runX = 0f;
+    float run = 0f;
+    float nextRun = 0f;
     float timer = 0f;
-    float timeReset = 5f;
+    int timeReset = 5;
 
-    /*float maxHealth = 100f;
-    float health;
-    
-    public float damage = 20f;
-    public float kbX = 300f;
+
+
+    /*public float damage = 5f;
+    public float kbX = 1000f;
     public float kbY = 300f;*/
 
     void Start(){
-        damage = 20;
-        kbX = 300;
+        damage = 10;
+        kbX = 1000;
         kbY = 300;
         health = maxHealth;
-        runX = Random.Range(-1f, 1f) * velocity;
-        runY = Random.Range(-1f, 1f) * velocity;
+        run = Random.Range(-1f, 1f) * velocity;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //when timer equals time reset, object moves
+        //once timer goes above time reset, object stops, randomizes the next movement, and resets timer
         timer += Time.fixedDeltaTime;  
         if(((int) timer) == timeReset){
-            runX = Random.Range(-1f, 1f) * velocity;
-            runY = Random.Range(-1f, 1f) * velocity;
+            run = nextRun;
+        }else if(((int) timer) > timeReset) {
+            run = 0f;
+            nextRun = Random.Range(-1f, 1f) * velocity;
             timer = 0f;
-        }
+        } 
     }
 
     void FixedUpdate(){
-        Vector3 targetVelocity = new Vector2(runX, runY);
+        Vector3 targetVelocity = new Vector2(run, rb.velocity.y);
         rb.velocity = targetVelocity;
+        animator.SetFloat("Speed", Mathf.Abs(run));
 
         if(targetVelocity.x > 0 && !facingRight){//moving right, but facing left
 			Flip();
@@ -54,6 +57,7 @@ public class OctoBehavior :  EnemyBehavior
 		}
     }
     /*
+
     public void Hit(float damage){
         health -= damage;
 
@@ -61,24 +65,23 @@ public class OctoBehavior :  EnemyBehavior
             int index = 0;
             float percent = (health/maxHealth);
             if(percent >= 1.0){
-                index = 0;
+                index = 0;//(infin-100%]
             }else if(percent >= .75){
-                index = 1;
+                index = 1;//(100%-75%]
             }else if(percent >= .5){
-                index = 2;
+                index = 2;//(75%-50%]
             }else if(percent >= .25){
-                index = 3;
+                index = 3;//(50%-25%]
             }else if(percent > 0){
-                index = 3;
+                index = 3;//(25%-0%)
             }else if(percent == 0){
-                index = 4;
+                index = 4;//[0%]
             }
             //Debug.Log("%: " + percent + " i: " + index);
             GameObject healthObj = Instantiate(healthBar,gameObject.transform.position,Quaternion.Euler(0, 0, 0));
             healthObj.GetComponent<DisplayHealth>().display(index);
             Destroy(healthObj,.25f);
         }
-
         if(health <=0){
             GameObject deathAni = Instantiate(deathEffect,gameObject.transform.position,gameObject.transform.rotation);
             Destroy(gameObject);

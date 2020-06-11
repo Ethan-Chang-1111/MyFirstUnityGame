@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class DisplayHealth : MonoBehaviour
 {
-    public SpriteRenderer joe;  
-    public Sprite hp100;
-    public Sprite hp75;
-    public Sprite hp50;
-    public Sprite hp25;
-    public Sprite hp0;
+    [SerializeField] private SpriteRenderer joe = null;  
+    [SerializeField] private Sprite hp100 = null;
+    [SerializeField] private Sprite hp75 = null;
+    [SerializeField] private Sprite hp50 = null;
+    [SerializeField] private Sprite hp25 = null;
+    [SerializeField] private Sprite hp0 = null;
 
     Sprite[] bob = new Sprite[5];
-    public int index;
+    int index;
 
     // Start is called before the first frame update
     void Start()

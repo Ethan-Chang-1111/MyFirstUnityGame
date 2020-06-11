@@ -5,14 +5,14 @@ using UnityEngine;
 public class BasicMove : MonoBehaviour
 {
     //player status variables
-    public CharacterController2D controller;
-    public Rigidbody2D rb;
-    public float moveSpeed = 0f;
+    [SerializeField] private CharacterController2D controller = null;
+    [SerializeField] private Rigidbody2D rb = null;
+    [SerializeField] private float moveSpeed = 0f;
     float horizontalMove = 0f;
     bool jump = false;
     bool crouch = false;
 
-    float maxHealth = 100;
+    [SerializeField] private float maxHealth = 100;
     float health;
 
     float timer;
@@ -20,20 +20,20 @@ public class BasicMove : MonoBehaviour
     float invicTime = 5f;
 
     //firepoint manipulation variables
-    public GameObject firepoint;
+    [SerializeField] private GameObject firepoint = null;
     Vector2 initFirePointRelPos;
     float firePointOffsetCrouch = .13f;
     float firePointOffsetLookUpX = .125f;
     float firePointOffsetLookUpY = .17f;
 
     //collider manipulation variables
-    public CapsuleCollider2D colliderObj;
+    [SerializeField] private CapsuleCollider2D colliderObj = null;
     Vector2 initialSize;
     Vector2 initialOffset;
 
     //Animation variable
-    public Animator animator;
-    public SpriteRenderer spriteRender;
+    [SerializeField] private Animator animator = null;
+    [SerializeField] private SpriteRenderer spriteRender = null;
     Color initColor;
     bool IsOpaque = true;
     
@@ -102,27 +102,13 @@ public class BasicMove : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D collision){
-            GameObject hitInfo = collision.gameObject;
-            EnemyBehavior hitObject1 = hitInfo.GetComponent<EnemyBehavior>();
-            JumperBehavior hitObject2 = hitInfo.GetComponent<JumperBehavior>();
-            OctoBehavior hitObject3 = hitInfo.GetComponent<OctoBehavior>();
-
-            if(hitObject1 != null){//true if hit by Crab Enemy
-                Vector2 AB = (hitObject1.rb.position - rb.position);//vector from player to obj
-                Vector2 KB = calcKB(AB,hitObject1.kbX,hitObject1.kbY);
-                takeDamage(hitObject1.damage, KB);
-
-            }else if(hitObject2 != null){
-                Vector2 AB = (hitObject2.rb.position - rb.position);//vector from player to obj
-                Vector2 KB = calcKB(AB,hitObject2.kbX,hitObject2.kbY);
-                takeDamage(hitObject2.damage, KB);
-
-            }else if (hitObject3 != null){
-                Vector2 AB = (hitObject3.rb.position - rb.position);//vector from player to obj
-                Vector2 KB = calcKB(AB,hitObject3.kbX,hitObject3.kbY);
-                takeDamage(hitObject3.damage, KB);
-
-            }
+        GameObject hitInfo = collision.gameObject;
+        EnemyParent hitObject = hitInfo.GetComponent<EnemyParent>();
+        if(hitObject != null){
+            Vector2 AB = (hitObject.getRB().position - rb.position);//vector from player to obj
+            Vector2 KB = calcKB(AB,hitObject.getOnHit().x,hitObject.getOnHit().y);
+            takeDamage(hitObject.getOnHit().z, KB);
+        }
     }
 
     Vector2 calcKB(Vector2 enemyPos, float kbX, float kbY){

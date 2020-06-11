@@ -5,8 +5,8 @@ using UnityEngine;
 public class Parallax : MonoBehaviour
 {
     //parallaxing
-    public Transform[] backgrounds;
-    public float smoothing = 1f;
+    [SerializeField] private Transform[] backgrounds = null;
+    [SerializeField] private float smoothing = 1f;
 
     private float[] parallaxScales;
     private Transform Paracamera;
@@ -14,7 +14,7 @@ public class Parallax : MonoBehaviour
     private Vector3 relVelocity = Vector3.zero;
 
     //moving the background with player/camera? or repeate the background as the player moves
-    public GameObject player;
+    [SerializeField] private GameObject player = null;
     Rigidbody2D rb;
     BasicMove playerMovement;
     Vector2 previousPlayerPosition;

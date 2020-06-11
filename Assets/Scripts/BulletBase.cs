@@ -1,0 +1,42 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BulletBase : BulletAbstract
+{
+    public Rigidbody2D rb = null;
+    public GameObject impactEffect = null;
+    public float speed = 10f;
+    public int lifespan = 1;
+    public float timeExisting = 0f;
+
+    public override void Start(){
+        rb.velocity = transform.right * speed;
+    }
+    
+    public override void FixedUpdate(){
+        timeExisting += Time.fixedDeltaTime;  
+        if(timeExisting >= lifespan){
+            GameObject bulletAnim = Instantiate(impactEffect,transform.position,transform.rotation);
+            Destroy(gameObject);
+            Destroy(bulletAnim, .34f);
+        } 
+    }
+
+    public override void OnTriggerEnter2D(Collider2D hitInfo){
+        string tag = hitInfo.tag;
+        if(tag == "Enemy" || tag == "Ground"){//true if hit enemy or ground
+            EnemyParent hitObject = hitInfo.GetComponent<EnemyParent>();
+            if(hitObject != null){
+                hitObject.Hit(10);
+            }
+            endEffect(tag);
+        }
+    }    
+
+    public override void endEffect(string tag){
+        GameObject bulletAnim = Instantiate(impactEffect,transform.position,transform.rotation);
+        Destroy(gameObject);
+        Destroy(bulletAnim, .34f);
+    }
+}

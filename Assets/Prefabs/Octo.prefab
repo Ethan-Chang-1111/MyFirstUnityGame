@@ -164,11 +164,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 3526228216043906396}
+  animator: {fileID: 3526228216043906370}
   deathEffect: {fileID: 8996658355018381971, guid: 454cd09e0e1b1f0419b0b5f4f1d7c429,
     type: 3}
   healthBar: {fileID: 9028694504705025698, guid: ee76f00f85a172841a6079c161f40920,
     type: 3}
-  velocity: 10
+  facingRight: 0
+  maxHealth: 100
+  health: 0
   damage: 20
-  kbX: 1000
+  kbX: 300
   kbY: 300
+  velocity: 10

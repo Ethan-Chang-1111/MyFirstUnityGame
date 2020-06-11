@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class playerWeapon : MonoBehaviour
 {
-    public Transform FirePoint;
-    public GameObject Bullet;
-    public GameObject BigBullet;
+    [SerializeField] private Transform FirePoint = null;
+    [SerializeField] private GameObject Bullet = null;
+    [SerializeField] private GameObject BigBullet = null;
 
     //Animation
-    public Animator animator;
+    [SerializeField] private Animator animator = null;
 
     //fireing cooldowns
     float shotCD1 = .5f;

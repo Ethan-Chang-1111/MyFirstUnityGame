@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour
 {
-    public GameObject enemy;
-    public Transform location;
-    public int rate = 2;
+    [SerializeField] private GameObject enemy = null;
+    [SerializeField] private Transform location = null;
+    [SerializeField] private int rate = 2;
     float timer = 0f;
     // Update is called once per frame
     void Update()
