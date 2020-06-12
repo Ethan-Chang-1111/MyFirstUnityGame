@@ -24,19 +24,25 @@ public class EnemyBehavior : EnemyParent
         if(health >= 0){
             int index = 0;
             float percent = (health/maxHealth);
-            if(percent >= 1.0){
-                index = 0;//(infin-100%]
-            }else if(percent >= .75){
-                index = 1;//(100%-75%]
-            }else if(percent >= .5){
-                index = 2;//(75%-50%]
-            }else if(percent >= .25){
-                index = 3;//(50%-25%]
-            }else if(percent > 0){
-                index = 3;//(25%-0%)
-            }else if(percent == 0){
-                index = 4;//[0%]
-            }
+
+            //percent * 4
+            //p:100 i:4
+            //p:75 i:3
+            //p:50 i:2
+            //p:15 i:1
+            //p:0 i:0
+            //p:80 i:3
+            
+            //round nearest int
+            //N = percent*4
+            //N*10 % 10 = I
+            //I = I>=5?(int)N+1:(int)N
+
+            float N = percent*4;
+            //round
+            float I = (N*10)%10;
+            index = I>=5?(int)(N+1):(int)N; 
+
             //Debug.Log("%: " + percent + " i: " + index);
             GameObject healthObj = Instantiate(healthBar,gameObject.transform.position,Quaternion.Euler(0, 0, 0));
             healthObj.GetComponent<DisplayHealth>().display(index);

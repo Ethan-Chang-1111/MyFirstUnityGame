@@ -31,12 +31,18 @@ public class BasicMove : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRender = null;
     Color initColor;
     bool IsOpaque = true;
+
+    //Communicate with UI
+    [SerializeField] private GameObject UI = null;
+    HealthUI healthUI;
     
     void Awake(){
         health = maxHealth;
         initColor = spriteRender.color;
 
         initFirePointRelPos = transform.InverseTransformPoint(firepoint.transform.position);//world space into local space
+
+        healthUI = UI.GetComponent<HealthUI>();
     }
 
     // Update is called once per frame
@@ -94,24 +100,29 @@ public class BasicMove : MonoBehaviour
         EnemyParent hitObject = hitInfo.GetComponent<EnemyParent>();
         if(hitObject != null){
             Vector2 AB = (hitObject.getRB().position - rb.position);//vector from player to obj
-            Vector2 KB = calcKB(AB,hitObject.getOnHit().x,hitObject.getOnHit().y);
+            Vector2 noMag = AB.normalized;//Remove magnitude and keep direction of AB
+            Vector2 KB = new Vector2(-(noMag.x*hitObject.getOnHit().x),-(noMag.y*hitObject.getOnHit().y));//increase magnitude of AB to right kb value and reverse direction
             takeDamage(hitObject.getOnHit().z, KB);
         }
     }
 
-    Vector2 calcKB(Vector2 enemyPos, float kbX, float kbY){
-        Vector2 noMag = enemyPos.normalized;//Remove magnitude and keep direction of AB
-        return new Vector2(-(noMag.x*kbX),-(noMag.y*kbY));//increase magnitude of AB to right kb value and reverse direction
-    }
-    
     void takeDamage(float dmg, Vector2 kb){
         if(!isInvinc){//if not invincible
             health -= dmg;
+            rb.AddForce(kb);
+            Debug.Log(health);
+            
+            int index = 0;
+            float percent = (health/maxHealth);
+            float absolIndex = percent*4;
+            float rounder = (absolIndex*10)%10;
+            index = rounder>=5?(int)(absolIndex+1):(int)absolIndex; 
+
+            healthUI.index = index;
+
             animator.SetBool("Damaged",true);
             animator.SetBool("InAir",true);
             isInvinc = true;//can no longer take damage until set to false;
-            rb.AddForce(kb);
-            Debug.Log(health);
         }
     }
 

@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class DisplayHealth : MonoBehaviour
+public class HealthUI : MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer joe = null;  
+
+    Image picture;  
     [SerializeField] private Sprite hp100 = null;
     [SerializeField] private Sprite hp75 = null;
     [SerializeField] private Sprite hp50 = null;
@@ -12,11 +14,14 @@ public class DisplayHealth : MonoBehaviour
     [SerializeField] private Sprite hp0 = null;
 
     Sprite[] bob = new Sprite[5];
-    int index;
+    public int index = 4;
 
     // Start is called before the first frame update
     void Start()
     {
+        picture = GetComponent<Image>();
+        index = 4;
+
         bob[0] = hp0;
         bob[1] = hp25;
         bob[2] = hp50;
@@ -24,11 +29,11 @@ public class DisplayHealth : MonoBehaviour
         bob[4] = hp100;
     }
 
-    void Update(){
-        joe.sprite = bob[index];
-    }
-    
-    public void display(int i){
-        index = i;
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        index = index>4?0:index<0?4:index;
+        picture.sprite = bob[index];
+        
     }
 }

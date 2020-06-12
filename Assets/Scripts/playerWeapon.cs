@@ -7,6 +7,7 @@ public class playerWeapon : MonoBehaviour
     [SerializeField] private Transform FirePoint = null;
     [SerializeField] private GameObject Bullet = null;
     [SerializeField] private GameObject BigBullet = null;
+    [SerializeField] private GameObject BombBullet = null;
 
     //Animation
     [SerializeField] private Animator animator = null;
@@ -14,8 +15,10 @@ public class playerWeapon : MonoBehaviour
     //fireing cooldowns
     float shotCD1 = .5f;
     float shotCD2 = 2f;
+    float shotCD3 = 2f;
     float timer1 = 0f;
     float timer2 = 0f;
+    float timer3 = 0f;
 
     //aiming up
     Quaternion rotation;
@@ -43,6 +46,16 @@ public class playerWeapon : MonoBehaviour
         }else if(Input.GetButtonUp("Fire2")){
             timer2 = 0;
             animator.SetBool("IsFireing", false);
+        }else if(Input.GetButton("Fire3")){
+            timer3 += Time.fixedDeltaTime;
+            if(timer3 >= shotCD3){
+                Shoot(3);
+                timer3 = 0f;
+            }
+            animator.SetBool("IsFireing", true);
+        }else if(Input.GetButtonUp("Fire3")){
+            timer3 = 0;
+            animator.SetBool("IsFireing", false);
         }
 
         if(Input.GetButton("LookUp")){
@@ -69,6 +82,8 @@ public class playerWeapon : MonoBehaviour
                 Instantiate(Bullet,FirePoint.position,rotation);
             }else if(i==2){
                 Instantiate(BigBullet,FirePoint.position,rotation);
+            }else if(i==3){
+                Instantiate(BombBullet,FirePoint.position,rotation);
             }
         }
     }

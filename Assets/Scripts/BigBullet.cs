@@ -16,9 +16,9 @@ public class BigBullet : BulletBase
     public override void endEffect(string tag){
         GameObject bulletAnim = Instantiate(impactEffect,transform.position,transform.rotation);
         Destroy(bulletAnim, .34f);
-        
+
         if(tag == "Ground"){//returns true if hit tilemap
-            Destroy(gameObject);
+            Destroy(gameObject);//only destroys by time or hit the tilemap
         }
     }
 }

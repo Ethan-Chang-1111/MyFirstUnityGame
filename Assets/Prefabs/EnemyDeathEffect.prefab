@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 653635552317842049}
   - component: {fileID: 8697016137326971863}
   m_Layer: 0
-  m_Name: enemy-death-1
+  m_Name: EnemyDeathEffect
   m_TagString: Effect
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,7 +92,7 @@ Animator:
   m_GameObject: {fileID: 8996658355018381971}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 51c7f6735e9bb594bbb24f96c6a1262f, type: 2}
+  m_Controller: {fileID: 9100000, guid: baafd5b25a5eccd4eabb50fff2bd9a45, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
