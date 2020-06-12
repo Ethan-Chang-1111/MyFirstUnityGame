@@ -25,13 +25,12 @@ public class BulletBase : BulletAbstract
     }
 
     public override void OnTriggerEnter2D(Collider2D hitInfo){
-        string tag = hitInfo.tag;
-        if(tag == "Enemy" || tag == "Ground"){//true if hit enemy or ground
+        if(hitInfo.CompareTag("Enemy") || hitInfo.CompareTag("Ground")){//true if hit enemy or ground
             EnemyParent hitObject = hitInfo.GetComponent<EnemyParent>();
             if(hitObject != null){
                 hitObject.Hit(damage);
             }
-            endEffect(tag);
+            endEffect(hitInfo.tag);
         }
     }    
 

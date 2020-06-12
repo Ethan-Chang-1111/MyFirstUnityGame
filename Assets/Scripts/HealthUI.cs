@@ -32,7 +32,7 @@ public class HealthUI : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        index = index>4?0:index<0?4:index;
+        index = index>4?4:index<0?0:index;
         picture.sprite = bob[index];
         
     }

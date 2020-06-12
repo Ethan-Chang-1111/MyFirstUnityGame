@@ -21,7 +21,7 @@ public class EnemyBehavior : EnemyParent
     public override void Hit(float damage){
         health -= damage;
 
-        if(health >= 0){
+        if(health > 0){
             int index = 0;
             float percent = (health/maxHealth);
 
@@ -47,11 +47,10 @@ public class EnemyBehavior : EnemyParent
             GameObject healthObj = Instantiate(healthBar,gameObject.transform.position,Quaternion.Euler(0, 0, 0));
             healthObj.GetComponent<DisplayHealth>().display(index);
             Destroy(healthObj,.25f);
-        }
-        if(health <=0){
+        }else{
             GameObject deathAni = Instantiate(deathEffect,gameObject.transform.position,gameObject.transform.rotation);
-            Destroy(gameObject);
             Destroy(deathAni,0.5f);
+            Destroy(gameObject);
         }
     }
 

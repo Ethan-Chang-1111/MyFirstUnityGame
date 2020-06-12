@@ -15,7 +15,7 @@ public class playerWeapon : MonoBehaviour
     //fireing cooldowns
     float shotCD1 = .5f;
     float shotCD2 = 2f;
-    float shotCD3 = 2f;
+    float shotCD3 = 3f;
     float timer1 = 0f;
     float timer2 = 0f;
     float timer3 = 0f;
@@ -26,6 +26,7 @@ public class playerWeapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //chain of else if so player cant fire more than one bullet type at a time
         if(Input.GetButton("Fire1")){
             timer1 += Time.fixedDeltaTime;
             if(timer1 >= shotCD1){
@@ -33,9 +34,12 @@ public class playerWeapon : MonoBehaviour
                 timer1 = 0f;
             }
             animator.SetBool("IsFireing", true);
+
         }else if(Input.GetButtonUp("Fire1")){//only calls when button has been pressed and released
             timer1 = 0;
             animator.SetBool("IsFireing", false);
+
+
         }else if(Input.GetButton("Fire2")){
             timer2 += Time.fixedDeltaTime;
             if(timer2 >= shotCD2){
@@ -46,6 +50,8 @@ public class playerWeapon : MonoBehaviour
         }else if(Input.GetButtonUp("Fire2")){
             timer2 = 0;
             animator.SetBool("IsFireing", false);
+
+
         }else if(Input.GetButton("Fire3")){
             timer3 += Time.fixedDeltaTime;
             if(timer3 >= shotCD3){
@@ -58,6 +64,7 @@ public class playerWeapon : MonoBehaviour
             animator.SetBool("IsFireing", false);
         }
 
+
         if(Input.GetButton("LookUp")){
             aimUp(true);
         }else if(!Input.GetButton("LookUp")){
@@ -65,7 +72,7 @@ public class playerWeapon : MonoBehaviour
         }
     }
 
-    void aimUp(bool up){
+    public void aimUp(bool up){
         if(up){
             rotation = Quaternion.Euler(0, 0, 90f);
         }else{
@@ -89,8 +96,10 @@ public class playerWeapon : MonoBehaviour
     }
 
     public void powerUp(bool active, int type){
-        if(type == 0){
-            shotCD1 = active?0f:.5f;
-        }
+        shotCD1 = (type == 0)?active?(0f):(.5f):shotCD1;
+        shotCD2 = (type == 1)?active?(0f):(2f):shotCD2;
+        shotCD3 = (type == 4)?active?(0f):(3f):shotCD3;
+
+        
     }
 }

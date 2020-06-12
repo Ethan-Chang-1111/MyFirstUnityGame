@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BasicMove : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class BasicMove : MonoBehaviour
     bool crouch = false;
 
     float maxHealth = 100;
-    float health;
+    public float health;
 
     float timer;
     bool isInvinc = false;
@@ -21,28 +22,37 @@ public class BasicMove : MonoBehaviour
 
     //firepoint manipulation variables
     [SerializeField] private GameObject firepoint = null;
-    Vector2 initFirePointRelPos;
+    Vector2 initFirePointRel;
     float firePointOffsetCrouch = .13f;
     float firePointOffsetLookUpX = .125f;
     float firePointOffsetLookUpY = .17f;
 
+    Vector2 crouchFirePosRel;
+    Vector2 upFirePosRel;
+
     //Animation variable
-    [SerializeField] private Animator animator = null;
-    [SerializeField] private SpriteRenderer spriteRender = null;
+    public Animator animator;
+    public SpriteRenderer spriteRender;
     Color initColor;
     bool IsOpaque = true;
 
     //Communicate with UI
-    [SerializeField] private GameObject UI = null;
+    [SerializeField] private GameObject HealthUI = null;
+    [SerializeField] private GameObject TextUI = null;
     HealthUI healthUI;
+    Text text;
     
     void Awake(){
-        health = maxHealth;
         initColor = spriteRender.color;
 
-        initFirePointRelPos = transform.InverseTransformPoint(firepoint.transform.position);//world space into local space
+        //create relative positions for firepoint
+        initFirePointRel = transform.InverseTransformPoint(firepoint.transform.position);//world space into local space
+        crouchFirePosRel = new Vector2(initFirePointRel.x, initFirePointRel.y-firePointOffsetCrouch);//shift local space for crouch Pos
+        upFirePosRel = new Vector2(initFirePointRel.x-firePointOffsetLookUpX, initFirePointRel.y+firePointOffsetLookUpY);//shift local space for lookup Pos
 
-        healthUI = UI.GetComponent<HealthUI>();
+        health = maxHealth;
+        healthUI = HealthUI.GetComponent<HealthUI>();
+        text = TextUI.GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -50,6 +60,8 @@ public class BasicMove : MonoBehaviour
     {   
         horizontalMove = Input.GetAxisRaw("Horizontal")*moveSpeed;
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
+        
+        text.text =  "Health: " + health.ToString() + "/" + maxHealth.ToString();
 
         if(isInvinc){
             timer += Time.fixedDeltaTime;
@@ -68,21 +80,22 @@ public class BasicMove : MonoBehaviour
             animator.SetBool("Jump",true);
         }
 
+        //while up is pressed, deactivate crouch
+        //while crouch is pressed deactivate up
+
         if(Input.GetButtonDown("Crouch")){
             crouch = true;
             changeFirePointCrouch(true);    
         }else if(Input.GetButtonUp("Crouch")){
             crouch = false;
             changeFirePointCrouch(false);
-        }
-
-        if(Input.GetButtonDown("LookUp")){
+        }else if(Input.GetButtonDown("LookUp")){
             changeFirePointLookUp(true);
             animator.SetBool("AimUp",true);
         }else if(Input.GetButtonUp("LookUp")){
             changeFirePointLookUp(false);
             animator.SetBool("AimUp",false);
-        }        
+        }
     }
 
     void FixedUpdate(){
@@ -110,7 +123,6 @@ public class BasicMove : MonoBehaviour
         if(!isInvinc){//if not invincible
             health -= dmg;
             rb.AddForce(kb);
-            Debug.Log(health);
             
             int index = 0;
             float percent = (health/maxHealth);
@@ -137,26 +149,24 @@ public class BasicMove : MonoBehaviour
     }
 
     public void powerUp(bool active, int type){
-        if(type == 1){
-            moveSpeed = active?60f:30f;
-        }
+        moveSpeed = (type == 2)?active?(60f):(30f):moveSpeed;
+        health = (type == 3)?active?(health+40):(health):health;
     }
 
     void changeFirePointCrouch(bool yes){
         if(yes){
-            Vector2 relTransform = (new Vector2(initFirePointRelPos.x, initFirePointRelPos.y-firePointOffsetCrouch));//transform the relative position
-            firepoint.transform.position = transform.TransformPoint(relTransform);//change rel pos to worl pos and transform
+            firepoint.transform.position = transform.TransformPoint(crouchFirePosRel);//change rel pos to worl pos and transform
         }else{
-            firepoint.transform.position = transform.TransformPoint(initFirePointRelPos);//go to init rel pos        
+           firepoint.transform.position = transform.TransformPoint(initFirePointRel);//go to init rel pos        
         }
+        
     }
     
     void changeFirePointLookUp(bool yes){
         if(yes){
-            Vector2 relTransform = (new Vector2(initFirePointRelPos.x-firePointOffsetLookUpX, initFirePointRelPos.y+firePointOffsetLookUpY));//transform the relative position
-            firepoint.transform.position = transform.TransformPoint(relTransform);//change rel pos to worl pos and transform
+            firepoint.transform.position = transform.TransformPoint(upFirePosRel);//change rel pos to worl pos and transform
         }else{
-            firepoint.transform.position = transform.TransformPoint(initFirePointRelPos);//go to init rel pos     
+            firepoint.transform.position = transform.TransformPoint(initFirePointRel);//go to init rel pos     
         }
     }
 

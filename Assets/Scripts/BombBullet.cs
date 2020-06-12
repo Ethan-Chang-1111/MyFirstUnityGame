@@ -9,7 +9,7 @@ public class BombBullet : BulletBase
     public override void Start()
     {
         lifespan = 3;
-        damage = 0f;
+        damage = 100f;
         speed = speed/2;
         rb.velocity = transform.right * speed;
     }

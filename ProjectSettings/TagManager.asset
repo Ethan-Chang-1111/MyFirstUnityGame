@@ -48,10 +48,10 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 1826996161
-    locked: 0
+    locked: 1
   - name: Foreground
     uniqueID: 585503877
-    locked: 0
+    locked: 1
   - name: StationaryObjects
     uniqueID: 2484796237
     locked: 0
