@@ -8,7 +8,7 @@ public class BasicMove : MonoBehaviour
     //player status variables
     [SerializeField] private CharacterController2D controller = null;
     [SerializeField] private Rigidbody2D rb = null;
-    float moveSpeed = 30f;
+    float moveSpeed = 20f;
     float horizontalMove = 0f;
     bool jump = false;
     bool crouch = false;

@@ -53,7 +53,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -169,7 +169,10 @@ MonoBehaviour:
     type: 3}
   healthBar: {fileID: 9028694504705025698, guid: ee76f00f85a172841a6079c161f40920,
     type: 3}
-  velocity: 30
+  facingRight: 0
+  maxHealth: 100
+  health: 0
   damage: 10
   kbX: 1000
   kbY: 300
+  velocity: 30

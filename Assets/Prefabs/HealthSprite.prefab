@@ -51,7 +51,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -101,7 +101,6 @@ MonoBehaviour:
   hp50: {fileID: 21300000, guid: a9509ce0f48f0434cbcbdd8213718012, type: 3}
   hp25: {fileID: 21300000, guid: d2b79fc3b443a0f40b04bf6165b62d98, type: 3}
   hp0: {fileID: 21300000, guid: 394da37b5eb5a8c4b8e1af7ad58f8de3, type: 3}
-  index: 0
 --- !u!50 &-1164992048691973289
 Rigidbody2D:
   serializedVersion: 4

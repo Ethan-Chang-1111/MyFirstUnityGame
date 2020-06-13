@@ -43,7 +43,7 @@ public class Parallax : MonoBehaviour
     void Update()
     {
         parallaxScript();
-        //backgroundFollowScript();
+        backgroundFollowScript();
     }
 
     void parallaxScript(){
