@@ -54,7 +54,7 @@ public class PowerUp : PowerUpAbstract
         GetComponent<CircleCollider2D>().enabled = false;
         this.gameObject.transform.GetChild(0).GetComponent<ParticleSystem>().Pause();
         this.gameObject.transform.GetChild(0).GetComponent<ParticleSystem>().Clear();
-        this.gameObject.transform.GetChild(1).GetComponent<Light2D>().intensity = 0;
+        this.gameObject.transform.GetChild(1).GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>().intensity = 0;
         player.powerUp(true,type);
         weapon.powerUp(true, type);
     }

@@ -18,9 +18,7 @@ public class BulletBase : BulletAbstract
     public override void FixedUpdate(){
         timeExisting += Time.fixedDeltaTime;  
         if(timeExisting >= lifespan){
-            GameObject bulletAnim = Instantiate(impactEffect,transform.position,transform.rotation);
-            Destroy(gameObject);
-            Destroy(bulletAnim, .34f);
+            endEffect("");
         } 
     }
 

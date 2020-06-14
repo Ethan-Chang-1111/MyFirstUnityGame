@@ -17,7 +17,7 @@ public class BigBullet : BulletBase
         GameObject bulletAnim = Instantiate(impactEffect,transform.position,transform.rotation);
         Destroy(bulletAnim, .34f);
 
-        if(tag == "Ground"){//returns true if hit tilemap
+        if(tag == "Ground" || tag == ""){//returns true if hit tilemap or timed out
             Destroy(gameObject);//only destroys by time or hit the tilemap
         }
     }

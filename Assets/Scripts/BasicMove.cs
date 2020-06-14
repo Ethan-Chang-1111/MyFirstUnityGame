@@ -20,7 +20,7 @@ public class BasicMove : MonoBehaviour
 
     float timer;
     bool isInvinc = false;
-    float invicTime = 5000f;
+    float invicTime = 5f;
 
     //firepoint manipulation variables
     [SerializeField] private GameObject firepoint = null;
