@@ -15,10 +15,12 @@ public class BasicMove : MonoBehaviour
 
     float maxHealth = 100;
     public float health;
+    
+    [SerializeField] private GameObject respawnPoint = null;
 
     float timer;
     bool isInvinc = false;
-    float invicTime = 5f;
+    float invicTime = 5000f;
 
     //firepoint manipulation variables
     [SerializeField] private GameObject firepoint = null;
@@ -61,7 +63,7 @@ public class BasicMove : MonoBehaviour
         horizontalMove = Input.GetAxisRaw("Horizontal")*moveSpeed;
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
         
-        text.text =  "Health: " + health.ToString() + "/" + maxHealth.ToString();
+        updateHealth();
 
         if(isInvinc){
             timer += Time.fixedDeltaTime;
@@ -122,25 +124,33 @@ public class BasicMove : MonoBehaviour
     void takeDamage(float dmg, Vector2 kb){
         if(!isInvinc){//if not invincible
             health -= dmg;
-            rb.AddForce(kb);
-            
-            int index = 0;
-            float percent = (health/maxHealth);
-            float absolIndex = percent*4;
-            float rounder = (absolIndex*10)%10;
-            index = rounder>=5?(int)(absolIndex+1):(int)absolIndex; 
-
-            healthUI.index = index;
-
-            animator.SetBool("Damaged",true);
-            animator.SetBool("InAir",true);
+            if(health>0){
+                rb.AddForce(kb);
+                updateHealth();
+                animator.SetBool("Damaged",true);
+                animator.SetBool("InAir",true);
+            }else{
+                dieAndRespawn();
+            }
             isInvinc = true;//can no longer take damage until set to false;
         }
     }
 
+    void updateHealth(){
+        float percent = (health/maxHealth);
+
+        int index = 0;
+        float absolIndex = percent*4;
+        float rounder = (absolIndex*10)%10;
+        index = rounder>=5?(int)(absolIndex+1):(int)absolIndex; 
+        healthUI.index = index;
+        
+        text.text =  "Health: " + health.ToString() + "/" + maxHealth.ToString();
+    }
+
     void playerBlink(){
         if(IsOpaque){
-            Color newColor = new Color(initColor.r,initColor.g,initColor.b,0.5f);
+            Color newColor = new Color(initColor.r,initColor.g,initColor.b,0.2f);
             spriteRender.color = newColor;
         }else{
             spriteRender.color = initColor;
@@ -148,8 +158,15 @@ public class BasicMove : MonoBehaviour
         IsOpaque = !IsOpaque;
     }
 
+    //try to respawn to nearest respawn platform. Call a global game object?
+    void dieAndRespawn(){
+        transform.position = new Vector2(respawnPoint.transform.position.x,respawnPoint.transform.position.y+1.8f);
+        health = maxHealth;
+        updateHealth();
+    }
+
     public void powerUp(bool active, int type){
-        moveSpeed = (type == 2)?active?(60f):(30f):moveSpeed;
+        moveSpeed = (type == 2)?active?(moveSpeed*2):(moveSpeed):moveSpeed;
         health = (type == 3)?active?(health+40):(health):health;
     }
 

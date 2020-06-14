@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.LWRP;
 
 public class PowerUp : PowerUpAbstract
 {
@@ -51,6 +52,9 @@ public class PowerUp : PowerUpAbstract
         active = true; 
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<CircleCollider2D>().enabled = false;
+        this.gameObject.transform.GetChild(0).GetComponent<ParticleSystem>().Pause();
+        this.gameObject.transform.GetChild(0).GetComponent<ParticleSystem>().Clear();
+        this.gameObject.transform.GetChild(1).GetComponent<Light2D>().intensity = 0;
         player.powerUp(true,type);
         weapon.powerUp(true, type);
     }
