@@ -18,8 +18,8 @@ public class PowerUp : PowerUpAbstract
     public float duration;
 
     bool active = false;
-    BasicMove player;
-    playerWeapon weapon;
+    [HideInInspector] public BasicMove player;
+    [HideInInspector] public playerWeapon weapon;
 
 
     public override void Start(){
@@ -52,9 +52,9 @@ public class PowerUp : PowerUpAbstract
         active = true; 
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<CircleCollider2D>().enabled = false;
-        this.gameObject.transform.GetChild(0).GetComponent<ParticleSystem>().Pause();
-        this.gameObject.transform.GetChild(0).GetComponent<ParticleSystem>().Clear();
-        this.gameObject.transform.GetChild(1).GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>().intensity = 0;
+        gameObject.transform.GetChild(0).GetComponent<ParticleSystem>().Pause();
+        gameObject.transform.GetChild(0).GetComponent<ParticleSystem>().Clear();
+        gameObject.transform.GetChild(1).GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>().intensity = 0;
         player.powerUp(true,type);
         weapon.powerUp(true, type);
     }

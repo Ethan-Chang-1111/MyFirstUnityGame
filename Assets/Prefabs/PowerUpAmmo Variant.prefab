@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &269807318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6220075147427048364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f23049daae13414d85733d858ef25a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  duration: 0
+  player: {fileID: 0}
+  weapon: {fileID: 0}
+  amount: 10
+  bulletType: 1
+--- !u!1001 &3560509308065425624
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7438641729465074545, guid: 6a75fd4e60f938d4aad6d85f86a7316f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -14.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438641729465074545, guid: 6a75fd4e60f938d4aad6d85f86a7316f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -26.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438641729465074545, guid: 6a75fd4e60f938d4aad6d85f86a7316f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438641729465074545, guid: 6a75fd4e60f938d4aad6d85f86a7316f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438641729465074545, guid: 6a75fd4e60f938d4aad6d85f86a7316f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438641729465074545, guid: 6a75fd4e60f938d4aad6d85f86a7316f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438641729465074545, guid: 6a75fd4e60f938d4aad6d85f86a7316f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438641729465074545, guid: 6a75fd4e60f938d4aad6d85f86a7316f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438641729465074545, guid: 6a75fd4e60f938d4aad6d85f86a7316f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438641729465074545, guid: 6a75fd4e60f938d4aad6d85f86a7316f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438641729465074545, guid: 6a75fd4e60f938d4aad6d85f86a7316f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438641729465074548, guid: 6a75fd4e60f938d4aad6d85f86a7316f,
+        type: 3}
+      propertyPath: m_Name
+      value: PowerUpAmmo
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7438641729465074544, guid: 6a75fd4e60f938d4aad6d85f86a7316f, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 6a75fd4e60f938d4aad6d85f86a7316f, type: 3}
+--- !u!1 &6220075147427048364 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7438641729465074548, guid: 6a75fd4e60f938d4aad6d85f86a7316f,
+    type: 3}
+  m_PrefabInstance: {fileID: 3560509308065425624}
+  m_PrefabAsset: {fileID: 0}

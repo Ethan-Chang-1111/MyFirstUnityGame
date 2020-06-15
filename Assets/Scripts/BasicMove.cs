@@ -25,6 +25,8 @@ public class BasicMove : MonoBehaviour
     //firepoint manipulation variables
     [SerializeField] private GameObject firepoint = null;
     Vector2 initFirePointRel;
+    Quaternion initFirePointRot;
+    Quaternion firePointLookUpRot;
     float firePointOffsetCrouch = .13f;
     float firePointOffsetLookUpX = .125f;
     float firePointOffsetLookUpY = .17f;
@@ -51,6 +53,9 @@ public class BasicMove : MonoBehaviour
         initFirePointRel = transform.InverseTransformPoint(firepoint.transform.position);//world space into local space
         crouchFirePosRel = new Vector2(initFirePointRel.x, initFirePointRel.y-firePointOffsetCrouch);//shift local space for crouch Pos
         upFirePosRel = new Vector2(initFirePointRel.x-firePointOffsetLookUpX, initFirePointRel.y+firePointOffsetLookUpY);//shift local space for lookup Pos
+
+        initFirePointRot = transform.rotation;//get initial rotation
+        firePointLookUpRot = Quaternion.Euler(transform.rotation.x,transform.rotation.y,transform.rotation.z+90f);
 
         health = maxHealth;
         healthUI = HealthUI.GetComponent<HealthUI>();
@@ -86,11 +91,11 @@ public class BasicMove : MonoBehaviour
         //while crouch is pressed deactivate up
 
         if(Input.GetButtonDown("Crouch")){
-            crouch = true;
             changeFirePointCrouch(true);    
+            crouch = true;
         }else if(Input.GetButtonUp("Crouch")){
-            crouch = false;
             changeFirePointCrouch(false);
+            crouch = false;
         }else if(Input.GetButtonDown("LookUp")){
             changeFirePointLookUp(true);
             animator.SetBool("AimUp",true);
@@ -172,9 +177,11 @@ public class BasicMove : MonoBehaviour
 
     void changeFirePointCrouch(bool yes){
         if(yes){
+            animator.SetBool("Crouch", yes);
             firepoint.transform.position = transform.TransformPoint(crouchFirePosRel);//change rel pos to worl pos and transform
         }else{
-           firepoint.transform.position = transform.TransformPoint(initFirePointRel);//go to init rel pos        
+            animator.SetBool("Crouch", yes);    
+            firepoint.transform.position = transform.TransformPoint(initFirePointRel);//go to init rel pos  
         }
         
     }
@@ -182,8 +189,11 @@ public class BasicMove : MonoBehaviour
     void changeFirePointLookUp(bool yes){
         if(yes){
             firepoint.transform.position = transform.TransformPoint(upFirePosRel);//change rel pos to worl pos and transform
+            firepoint.transform.rotation = firePointLookUpRot;
+
         }else{
-            firepoint.transform.position = transform.TransformPoint(initFirePointRel);//go to init rel pos     
+            firepoint.transform.position = transform.TransformPoint(initFirePointRel);//go to init rel pos  
+            firepoint.transform.rotation = firepoint.transform.parent.transform.rotation; 
         }
     }
 
