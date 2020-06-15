@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4656231675930995030}
   - component: {fileID: 5011876270173917576}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Point Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,7 +83,7 @@ GameObject:
   - component: {fileID: 5884675606782067029}
   - component: {fileID: 1243128568480700819}
   - component: {fileID: 4308669196053099915}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4839,7 +4839,7 @@ GameObject:
   - component: {fileID: 7438641729465074551}
   - component: {fileID: 7438641729465074547}
   - component: {fileID: 7438641729465074544}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: PowerUp
   m_TagString: PlayerInteract
   m_Icon: {fileID: 0}

@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6604391448045187819}
   - component: {fileID: 6767042172747131902}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Parametric Light 2D
-  m_TagString: Untagged
+  m_TagString: Effect
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83,7 +83,7 @@ GameObject:
   - component: {fileID: 2792326132111301997}
   - component: {fileID: 653635552317842049}
   - component: {fileID: 8697016137326971863}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: EnemyDeathEffect
   m_TagString: Effect
   m_Icon: {fileID: 0}

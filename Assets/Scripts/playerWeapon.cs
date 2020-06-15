@@ -8,6 +8,7 @@ public class playerWeapon : MonoBehaviour
     [SerializeField] private GameObject Bullet = null;
     [SerializeField] private GameObject BigBullet = null;
     [SerializeField] private GameObject BombBullet = null;
+    [SerializeField] private GameObject Flare = null;
 
     //Animation
     [SerializeField] private Animator animator = null;
@@ -62,6 +63,17 @@ public class playerWeapon : MonoBehaviour
         }else if(Input.GetButtonUp("Fire3")){
             timer3 = 0;
             animator.SetBool("IsFireing", false);
+        }
+
+        if(Input.GetButton("Flare")){
+            GameObject flare = Instantiate(Flare,FirePoint.position,rotation);
+            
+            if(Input.GetButton("LookUp")){
+                flare.GetComponent<Rigidbody2D>().velocity = transform.up*30f;
+            }else{
+                flare.GetComponent<Rigidbody2D>().velocity = transform.right*30f;
+            }
+            Destroy(flare, 20f);
         }
 
 

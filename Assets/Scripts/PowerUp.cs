@@ -8,7 +8,7 @@ public class PowerUp : PowerUpAbstract
     //set in the Inspector
     //T0:shot1 cd to 0
     //T1:shot2 cd to 0
-    //T2:speed to 60
+    //T2:speed inc
     //T3:health+40
     //T4:shot3 cd to 0
     

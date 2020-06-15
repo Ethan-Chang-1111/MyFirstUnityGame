@@ -108,7 +108,7 @@ public class BasicMove : MonoBehaviour
         controller.Move(horizontalMove * Time.fixedDeltaTime,crouch,jump);
         jump = false;
         animator.SetBool("Jump", false);
-    }
+    }   
 
     void OnCollisionEnter2D(Collision2D collision){
         GameObject hitInfo = collision.gameObject;

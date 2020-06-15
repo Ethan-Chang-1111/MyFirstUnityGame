@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1423695430956678406}
   - component: {fileID: 1423695430956678409}
   - component: {fileID: 1423695430956678408}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4767,7 +4767,7 @@ GameObject:
   - component: {fileID: 1423695431680974435}
   - component: {fileID: 1423695431680974434}
   - component: {fileID: 1423695431680974437}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: PowerUpHeal
   m_TagString: PlayerInteract
   m_Icon: {fileID: 0}
@@ -4899,7 +4899,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8706430851590759275}
   - component: {fileID: 3179252635769948483}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Point Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}

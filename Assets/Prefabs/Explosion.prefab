@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -9192283431171832036}
   - component: {fileID: 332903616944719882}
   - component: {fileID: 8189845133125727595}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Explosion
   m_TagString: Effect
   m_Icon: {fileID: 0}
@@ -171,9 +171,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8315596650318308931}
   - component: {fileID: 1575196859528166623}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Point Light 2D
-  m_TagString: Untagged
+  m_TagString: Effect
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
