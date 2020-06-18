@@ -120,6 +120,7 @@ public class playerWeapon : MonoBehaviour
         shotCD1 = (type == 0)?active?(0f):(.5f):shotCD1;
         shotCD2 = (type == 1)?active?(0f):(2f):shotCD2;
         shotCD3 = (type == 4)?active?(0f):(3f):shotCD3;
+        shotCD4 = (type == 5)?active?(0f):(1f):shotCD4;
     }
 
     public void calcAmmo(int type, int amount){
@@ -127,6 +128,7 @@ public class playerWeapon : MonoBehaviour
         ammo2 = (type == 2)?ammo2+amount:ammo2;
         ammo3 = (type == 3)?ammo3+amount:ammo3;
         ammo4 = (type == 4)?ammo4+amount:ammo4;
+        
     }
 
     string toString(){

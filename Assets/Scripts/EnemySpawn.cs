@@ -9,10 +9,10 @@ public class EnemySpawn : MonoBehaviour
     [SerializeField] private int rate = 2;
     float timer = 0f;
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         timer += Time.fixedDeltaTime;
-            if((int)timer == rate){
+            if(timer >= rate){
                 Instantiate(enemy,location.position,location.rotation);
                 timer = 0f;
             }
