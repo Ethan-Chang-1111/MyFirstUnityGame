@@ -66,13 +66,17 @@ public class JumperBehavior : EnemyBehavior
 		}
     }
 
-    void OnCollisionEnter2D(Collision2D collision){
+    public override void OnCollisionEnter2D(Collision2D collision){
         GameObject hitObject = collision.gameObject;
         PlatformEffector2D tilemap = hitObject.GetComponent<PlatformEffector2D>();
         if(tilemap != null){//returns true if hit tilemap
             animator.SetBool("InAir",false);
         }
+        if(hitObject.name == "Water"){
+            Hit(99999999f);
+        }
     }
+
     /*
     public void Hit(float damage){
         health -= damage;

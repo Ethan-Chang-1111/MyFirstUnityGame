@@ -4768,7 +4768,7 @@ GameObject:
   - component: {fileID: 6828092639363049695}
   - component: {fileID: 6828092639363049692}
   m_Layer: 11
-  m_Name: PowerUpShot
+  m_Name: PowerUpShotCD
   m_TagString: PlayerInteract
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4889,6 +4889,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   duration: 100
+  player: {fileID: 0}
+  weapon: {fileID: 0}
 --- !u!1 &8800791025176443977
 GameObject:
   m_ObjectHideFlags: 0

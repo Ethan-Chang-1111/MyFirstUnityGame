@@ -15,6 +15,7 @@ public abstract class EnemyParent: MonoBehaviour
     //use Vector3 to return 3 floats
     //kbX, kbY, damage
     public abstract Vector3 getOnHit();
+    public abstract void OnCollisionEnter2D(Collision2D collision);
 
 
 }

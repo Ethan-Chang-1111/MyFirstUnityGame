@@ -13,11 +13,9 @@ public class BasicMove : MonoBehaviour
     bool jump = false;
     bool crouch = false;
 
+    GameObject respawnPoint;
     float maxHealth = 100;
     public float health;
-    
-    [SerializeField] private GameObject respawnPoint = null;
-
     float timer;
     bool isInvinc = false;
     float invicTime = 5f;
@@ -124,6 +122,19 @@ public class BasicMove : MonoBehaviour
             Vector2 KB = new Vector2(-(noMag.x*hitObject.getOnHit().x),-(noMag.y*hitObject.getOnHit().y));//increase magnitude of AB to right kb value and reverse direction
             takeDamage(hitObject.getOnHit().z, KB);
         }
+
+        if(hitInfo.name == "Water"){
+            dieAndRespawn();
+        }
+
+        if(hitInfo.CompareTag("RespawnPlatform")){
+            Debug.Log(hitInfo.name);
+            hitInfo.GetComponent<RespawnPlatform>().turnOn();
+            if(respawnPoint != null && respawnPoint != hitInfo){//turn previous one off
+                respawnPoint.GetComponent<RespawnPlatform>().turnOff();
+            }
+            respawnPoint = hitInfo;
+        }
     }
 
     void takeDamage(float dmg, Vector2 kb){
@@ -163,8 +174,11 @@ public class BasicMove : MonoBehaviour
         IsOpaque = !IsOpaque;
     }
 
-    //try to respawn to nearest respawn platform. Call a global game object?
     void dieAndRespawn(){
+        for(int i = 0; i<-1;i++){
+            powerUp(false,i);
+            gameObject.GetComponent<playerWeapon>().powerUp(false,i);
+        }
         transform.position = new Vector2(respawnPoint.transform.position.x,respawnPoint.transform.position.y+1.8f);
         health = maxHealth;
         updateHealth();

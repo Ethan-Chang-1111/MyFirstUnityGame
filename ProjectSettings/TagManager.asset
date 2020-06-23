@@ -9,6 +9,7 @@ TagManager:
   - Effect
   - PlayerInteract
   - Ground
+  - RespawnPlatform
   layers:
   - Default
   - TransparentFX
@@ -55,6 +56,9 @@ TagManager:
   - name: StationaryObjects
     uniqueID: 2484796237
     locked: 0
+  - name: Effects
+    uniqueID: 2542704067
+    locked: 0
   - name: Enemies
     uniqueID: 1710475267
     locked: 0
@@ -63,7 +67,4 @@ TagManager:
     locked: 0
   - name: Bullet
     uniqueID: 662374267
-    locked: 0
-  - name: Effects
-    uniqueID: 2542704067
     locked: 0

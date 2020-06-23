@@ -66,4 +66,11 @@ public class EnemyBehavior : EnemyParent
     public override Vector3 getOnHit(){
         return new Vector3(kbX,kbY,damage);
     }
+
+    public override void OnCollisionEnter2D(Collision2D collision){
+        GameObject hitInfo = collision.gameObject;
+        if(hitInfo.name == "Water"){
+            Hit(99999999f);
+        }
+    }
 }
