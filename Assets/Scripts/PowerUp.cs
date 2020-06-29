@@ -63,6 +63,14 @@ public class PowerUp : PowerUpAbstract
     public override void endEffect(){
         player.powerUp(false,type);
         weapon.powerUp(false, type);
-        Destroy(gameObject);
+        //Destroy(gameObject);
+    }
+    
+    public override void respawn(){
+        active = false; 
+        GetComponent<SpriteRenderer>().enabled = true;
+        GetComponent<CircleCollider2D>().enabled = true;
+        gameObject.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
+        gameObject.transform.GetChild(1).GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>().intensity = 1;
     }
 }

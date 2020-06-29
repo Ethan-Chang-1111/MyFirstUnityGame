@@ -33,4 +33,8 @@ public class FloatingLights : MonoBehaviour
         //move from current position to a random position within range
         rb.position = Vector3.MoveTowards(rb.position, initPos+(movement * range), maxDistanceDelta*Time.deltaTime);
     }
+
+    public void respawn(){
+        rb.position = initPos;
+    }
 }

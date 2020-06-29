@@ -7,6 +7,10 @@ public class AmmoPWR : PowerUp
     public int amount = 10;
     public int bulletType = 0;
 
+    public override void Start(){
+        type = -1;
+        duration = -1;
+    }
     public override void startEffect(){
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<CircleCollider2D>().enabled = false;

@@ -13,4 +13,6 @@ public abstract class PowerUpAbstract : MonoBehaviour
     public abstract void startEffect();
 
     public abstract void endEffect();
+
+    public abstract void respawn();
 }

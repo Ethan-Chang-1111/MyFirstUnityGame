@@ -27,10 +27,10 @@ public class playerWeapon : MonoBehaviour
     float timer3 = 0f;
     float timer4 = 0f;
 
-    int ammo1 = 10;
-    int ammo2 = 10;
-    int ammo3 = 10;
-    int ammo4 = 10;
+    int ammo1 = 100;
+    int ammo2 = 100;
+    int ammo3 = 100;
+    int ammo4 = 100;
 
 
     void Start(){
@@ -129,6 +129,12 @@ public class playerWeapon : MonoBehaviour
         ammo3 = (type == 3)?ammo3+amount:ammo3;
         ammo4 = (type == 4)?ammo4+amount:ammo4;
         
+    }
+    public void setAmmo(int amount){
+        ammo1 = amount;
+        ammo2 = amount;
+        ammo3 = amount;
+        ammo4 = amount;
     }
 
     string toString(){
