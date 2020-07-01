@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class BasicMove : MonoBehaviour
 {
+    #region Variables
     //player status variables
     [SerializeField] private CharacterController2D controller = null;
     [SerializeField] private Rigidbody2D rb = null;
@@ -14,10 +16,11 @@ public class BasicMove : MonoBehaviour
     bool jump = false;
     bool crouch = false;
 
+    //health/damage info
     GameObject respawnPoint;
     float maxHealth = 100;
     public float health;
-    int lives = 10;
+    int lives = 3;
     float timer;
     bool isInvinc = false;
     float invicTime = 5f;
@@ -30,7 +33,6 @@ public class BasicMove : MonoBehaviour
     float firePointOffsetCrouch = .13f;
     float firePointOffsetLookUpX = .125f;
     float firePointOffsetLookUpY = .17f;
-
     Vector2 crouchFirePosRel;
     Vector2 upFirePosRel;
 
@@ -49,6 +51,7 @@ public class BasicMove : MonoBehaviour
     Text livesText;
 
     [SerializeField] private GameMaster gm = null;
+    #endregion
     
     void Awake(){
         initColor = spriteRender.color;
@@ -188,7 +191,7 @@ public class BasicMove : MonoBehaviour
 
     void updateLives(){
         if(lives<=0){
-            Debug.Log("Dead");
+             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         livesText.text = "Lives: " + lives;
     }
@@ -198,9 +201,10 @@ public class BasicMove : MonoBehaviour
             powerUp(false,i);
             gameObject.GetComponent<playerWeapon>().powerUp(false,i);
         }
-        for(int i = 0; i<10; i++){
-            gameObject.GetComponent<playerWeapon>().setAmmo(100);
-        }
+
+        gameObject.GetComponent<playerWeapon>().resetAmmo();
+        gameObject.GetComponent<playerWeapon>().resetEnergy();
+
         lives -= 1;
         updateLives();
         health = maxHealth;

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f23049daae13414d85733d858ef25a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 6
   duration: 0
   player: {fileID: 0}
   weapon: {fileID: 0}
@@ -83,7 +83,7 @@ PrefabInstance:
     - target: {fileID: 7438641729465074548, guid: 6a75fd4e60f938d4aad6d85f86a7316f,
         type: 3}
       propertyPath: m_Name
-      value: PowerUpAmmo
+      value: PowerUpAmmo Variant
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7438641729465074544, guid: 6a75fd4e60f938d4aad6d85f86a7316f, type: 3}

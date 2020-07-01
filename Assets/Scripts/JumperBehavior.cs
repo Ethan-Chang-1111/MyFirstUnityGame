@@ -4,25 +4,13 @@ using UnityEngine;
 
 public class JumperBehavior : EnemyBehavior
 {
-    /*public Rigidbody2D rb;
-    public Animator animator;
-    [SerializeField] private GameObject deathEffect = null;
-    [SerializeField] private GameObject healthBar = null;*/
     [SerializeField] private float jumpVelocity = 0f;
-    //bool facingRight = false;
 
     //random movement
     float run = -1f;
     float random = 1f;
     float timer = 0f;
     float timeReset = 10;
-    /*
-    float maxHealth = 100f;
-    float health;
-
-    public float damage = 10f;
-    public float kbX = 2000f;
-    public float kbY = 0f;*/
 
     void Start(){
         damage = 5;
@@ -76,52 +64,4 @@ public class JumperBehavior : EnemyBehavior
             Hit(99999999f);
         }
     }
-
-    /*
-    public void Hit(float damage){
-        health -= damage;
-
-        if(health >= 0){
-            int index = 0;
-            float percent = (health/maxHealth);
-            if(percent >= 1.0){
-                index = 0;
-            }else if(percent >= .75){
-                index = 1;
-            }else if(percent >= .5){
-                index = 2;
-            }else if(percent >= .25){
-                index = 3;
-            }else if(percent > 0){
-                index = 3;
-            }else if(percent == 0){
-                index = 4;
-            }
-            //Debug.Log("%: " + percent + " i: " + index);
-            GameObject healthObj = Instantiate(healthBar,gameObject.transform.position,Quaternion.Euler(0, 0, 0));
-            healthObj.GetComponent<DisplayHealth>().display(index);
-            Destroy(healthObj,.25f);
-        }
-
-        if(health <=0){
-            GameObject deathAni = Instantiate(deathEffect,gameObject.transform.position,gameObject.transform.rotation);
-            Destroy(gameObject);
-            Destroy(deathAni,0.5f);
-        }
-    }
-
-    public void Flip(){
-		facingRight = !facingRight;
-		transform.Rotate(0f, 180f, 0f);
-	}
-
-    public Rigidbody2D getRB(){
-        return rb;
-    }
-
-    public Vector3 getOnHit(){
-        return new Vector3(kbX,kbY,damage);
-    }*/
-
-    
 }

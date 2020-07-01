@@ -8,7 +8,6 @@ public class AmmoPWR : PowerUp
     public int bulletType = 0;
 
     public override void Start(){
-        type = -1;
         duration = -1;
     }
     public override void startEffect(){
@@ -17,8 +16,11 @@ public class AmmoPWR : PowerUp
         this.gameObject.transform.GetChild(0).GetComponent<ParticleSystem>().Pause();
         this.gameObject.transform.GetChild(0).GetComponent<ParticleSystem>().Clear();
         this.gameObject.transform.GetChild(1).GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>().intensity = 0;
-
-        weapon.calcAmmo(bulletType,amount);
+        if(type == 6){
+            weapon.calcAmmo(bulletType,amount);
+        }else if(type == 7){
+            weapon.calcEnergy(amount);
+        }
     }
 
     public override void endEffect(){
