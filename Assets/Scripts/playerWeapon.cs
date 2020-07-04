@@ -47,7 +47,7 @@ public class playerWeapon : MonoBehaviour
     static int bEnergyRegenAmt = 10;
     int cEnergyRegenAmt;
 
-    bool usingBullets = true;
+    bool usingBullets = false;
 
     #endregion
 

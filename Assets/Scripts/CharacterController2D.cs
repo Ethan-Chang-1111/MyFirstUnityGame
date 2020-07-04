@@ -50,21 +50,7 @@ public class CharacterController2D : MonoBehaviour
 	//OnLandEvent is not called when player is on the ground. It thinks !wasGrounded is true when it is not
 	private void FixedUpdate()
 	{
-		bool wasGrounded = m_Grounded;//was the player just in the air or ground
-		m_Grounded = false;//assume we are in air
-
-		// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
-		// This can be done using layers instead but Sample Assets will not overwrite your project settings.
-		Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
-		for (int i = 0; i < colliders.Length; i++)
-		{
-			if (colliders[i].gameObject != gameObject)//returns true if in air
-			{
-				m_Grounded = true;
-				if (!wasGrounded){//returns true if were in the air and just landed
-					OnLandEvent.Invoke();}
-			}
-		}
+		checkGrounded();
 	}
 
 
@@ -136,7 +122,25 @@ public class CharacterController2D : MonoBehaviour
 			// Add a vertical force to the player.
 			//m_Grounded = false;
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+			checkGrounded();
 		}	
+	}
+	void checkGrounded(){
+		bool wasGrounded = m_Grounded;//was the player just in the air or ground
+		m_Grounded = false;//assume we are in air
+
+		// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
+		// This can be done using layers instead but Sample Assets will not overwrite your project settings.
+		Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
+		for (int i = 0; i < colliders.Length; i++)
+		{
+			if (colliders[i].gameObject != gameObject)//returns true if in air
+			{
+				m_Grounded = true;
+				if (!wasGrounded){//returns true if were in the air and just landed
+					OnLandEvent.Invoke();}
+			}
+		}
 	}
 
 	private void Flip()
