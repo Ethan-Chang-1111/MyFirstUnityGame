@@ -25,6 +25,19 @@ public class EnemyBehavior : EnemyParent
             int index = 0;
             float percent = (health/maxHealth);
 
+            //percent * 4
+            //p:100 i:4
+            //p:75 i:3
+            //p:50 i:2
+            //p:15 i:1
+            //p:0 i:0
+            //p:80 i:3
+            
+            //round nearest int
+            //N = percent*4
+            //N*10 % 10 = I
+            //I = I>=5?(int)N+1:(int)N
+
             float N = percent*4;
             //round
             float I = (N*10)%10;
